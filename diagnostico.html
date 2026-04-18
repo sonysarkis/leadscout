@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diagnóstico 360° · The Crew Autos · Últimos 6 Meses</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --gold: #F5C518;
+  --gold-bright: #FFD700;
+  --gold-dark: #C9A227;
+  --bg-deep: #111111;
+  --bg-card: #1E1E1E;
+  --bg-panel: #2A2A2A;
+  --text: #FFFFFF;
+  --text-sec: #CCCCCC;
+  --text-muted: #888888;
+  --green: #4CAF50;
+  --red: #F44336;
+  --glow-gold: 0 0 20px rgba(245, 197, 24, 0.6);
+  --glow-subtle: 0 0 10px rgba(245, 197, 24, 0.3);
+  --font-display: 'Orbitron', sans-serif;
+  --font-heading: 'Rajdhani', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  padding-bottom: 60px;
+}
+
+/* HEADER */
+.header {
+  background: linear-gradient(180deg, #0a0a0a 0%, #111111 100%);
+  border-bottom: 1px solid rgba(245,197,24,0.3);
+  padding: 32px 40px 28px;
+  position: relative;
+}
+.header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--gold) 50%, transparent 100%);
+  box-shadow: 0 0 8px var(--gold);
+}
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+.header-left .label {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.header-left h1 {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  text-shadow: var(--glow-gold);
+  line-height: 1;
+}
+.header-left h1 .gold { color: var(--gold); }
+.header-left .subtitle {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  color: var(--text-sec);
+  margin-top: 10px;
+  letter-spacing: 0.05em;
+}
+.header-right {
+  text-align: right;
+  font-family: var(--font-heading);
+  font-size: 13px;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.header-right .period {
+  color: var(--gold);
+  font-weight: 700;
+  font-size: 15px;
+}
+
+/* CONTAINER */
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 40px;
+}
+
+/* SECTION */
+.section { margin-bottom: 56px; }
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.section-divider {
+  width: 60px;
+  height: 2px;
+  background: var(--gold);
+  box-shadow: 0 0 8px var(--gold);
+  margin: 14px 0 28px;
+}
+.section-desc {
+  color: var(--text-sec);
+  font-size: 14px;
+  margin-bottom: 24px;
+  max-width: 800px;
+  line-height: 1.6;
+}
+
+/* KPI GRID */
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+}
+.kpi {
+  background: var(--bg-card);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 24px 22px;
+  position: relative;
+  overflow: hidden;
+}
+.kpi::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: var(--gold);
+  box-shadow: 0 0 12px var(--gold);
+}
+.kpi-label {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.kpi-value {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--gold);
+  text-shadow: var(--glow-gold);
+  line-height: 1;
+}
+.kpi-sub {
+  font-size: 12px;
+  color: var(--text-sec);
+  margin-top: 8px;
+}
+
+/* GRID */
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+  gap: 24px;
+}
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+/* CARD */
+.card {
+  background: var(--bg-card);
+  border: 1px solid rgba(245,197,24,0.3);
+  border-radius: 12px;
+  padding: 24px;
+}
+.card-title {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.card-subtitle {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.chart-box {
+  position: relative;
+  height: 320px;
+}
+.chart-box-tall {
+  position: relative;
+  height: 400px;
+}
+
+/* TABLE */
+table.crew-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+table.crew-table thead tr {
+  background: var(--gold);
+  color: #111;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+table.crew-table th,
+table.crew-table td {
+  padding: 10px 12px;
+  text-align: left;
+}
+table.crew-table tbody tr:nth-child(odd) { background: var(--bg-card); }
+table.crew-table tbody tr:nth-child(even) { background: var(--bg-panel); }
+table.crew-table tbody tr:hover { background: rgba(245,197,24,0.08); }
+table.crew-table td.num { text-align: right; font-family: var(--font-heading); font-weight: 600; }
+table.crew-table td .tag {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+}
+.tag-good { background: rgba(76,175,80,0.2); color: var(--green); border: 1px solid var(--green); }
+.tag-mid { background: rgba(245,197,24,0.15); color: var(--gold); border: 1px solid var(--gold); }
+.tag-bad { background: rgba(244,67,54,0.15); color: var(--red); border: 1px solid var(--red); }
+.tag-dead { background: rgba(136,136,136,0.15); color: var(--text-muted); border: 1px solid var(--text-muted); }
+
+/* INSIGHT */
+.insight {
+  background: linear-gradient(135deg, #1A1A0D 0%, #1E1E1E 100%);
+  border: 1px solid var(--gold);
+  border-left: 4px solid var(--gold);
+  border-radius: 12px;
+  padding: 22px 26px;
+  margin-bottom: 16px;
+  box-shadow: var(--glow-subtle);
+}
+.insight-title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.insight-title .num {
+  background: var(--gold);
+  color: #111;
+  width: 24px; height: 24px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 900;
+}
+.insight-body {
+  color: var(--text-sec);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.insight-body strong { color: var(--text); }
+.insight-body .highlight {
+  color: var(--gold);
+  font-weight: 700;
+}
+.insight-action {
+  background: rgba(245,197,24,0.08);
+  border-left: 2px solid var(--gold);
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 0 6px 6px 0;
+  font-size: 13px;
+  color: var(--text);
+  font-style: italic;
+}
+.insight-action::before {
+  content: '→ ACCIÓN: ';
+  color: var(--gold);
+  font-weight: 700;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+}
+.insight-red {
+  border-left-color: var(--red);
+  border-color: rgba(244,67,54,0.5);
+}
+.insight-red .insight-title {
+  color: var(--red);
+}
+.insight-red .insight-title .num {
+  background: var(--red);
+  color: #fff;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 40px 20px 20px;
+  color: var(--text-muted);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  border-top: 1px solid rgba(245,197,24,0.2);
+  margin-top: 40px;
+}
+.footer .brand {
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 20px; }
+  .header { padding: 24px 20px; }
+  .grid-2 { grid-template-columns: 1fr; }
+  .chart-box, .chart-box-tall { height: 280px; }
+}
+</style>
+</head>
+<body>
+
+<div style="background:rgba(10,10,10,0.95); border-bottom:1px solid rgba(245,197,24,0.2); padding:10px 40px; display:flex; align-items:center; gap:20px; position:sticky; top:0; z-index:100; backdrop-filter:blur(10px);">
+  <a href="/" style="font-family:'Orbitron',sans-serif; font-size:13px; font-weight:700; color:#F5C518; text-decoration:none; letter-spacing:0.08em;">← LEAD SCOUT OS</a>
+  <span style="color:#444;">|</span>
+  <span style="font-family:'Rajdhani',sans-serif; font-size:13px; color:#888; letter-spacing:0.15em; text-transform:uppercase;">Diagnóstico 360°</span>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-left">
+      <div class="label">The Crew Autos · Sales Ops Intelligence</div>
+      <h1>DIAGNÓSTICO <span class="gold">360°</span></h1>
+      <div class="subtitle">Funnel · Fuentes · Performance · Inventario</div>
+    </div>
+    <div class="header-right">
+      <div>Ventana de análisis</div>
+      <div class="period">Oct 2025 — Abr 2026</div>
+      <div style="margin-top:6px;">1,759 leads · 297 deals · $1.29M gross</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- KPIs GLOBALES -->
+<div class="section">
+  <div class="section-label">01 · Resumen Ejecutivo</div>
+  <div class="section-title">KPIs Globales</div>
+  <div class="section-divider"></div>
+  <div class="section-desc">
+    Los indicadores clave del último periodo. Lo verde es lo que funciona, lo que hay que preguntarse es qué está pasando detrás de cada número.
+  </div>
+
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="kpi-label">Leads Totales</div>
+      <div class="kpi-value">1,759</div>
+      <div class="kpi-sub">~440 por mes (desde Dic 2025)</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Deals Escritos</div>
+      <div class="kpi-value">297</div>
+      <div class="kpi-sub">Incluye vendidos, pending y muertos</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Ventas Cerradas</div>
+      <div class="kpi-value">158</div>
+      <div class="kpi-sub">Deals en cualquier status "SOLD"</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Gross Total</div>
+      <div class="kpi-value">$1.29M</div>
+      <div class="kpi-sub">Suma de todos los deals escritos</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Front Gross Promedio</div>
+      <div class="kpi-value">$4,218</div>
+      <div class="kpi-sub">Margen por deal escrito</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Backend Gross Promedio</div>
+      <div class="kpi-value">$116</div>
+      <div class="kpi-sub">⚠️ Casi cero — oportunidad en F&I</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Conversión Lead → Deal</div>
+      <div class="kpi-value">8.4%</div>
+      <div class="kpi-sub">Match aproximado por nombre</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-label">Credit Apps Completadas</div>
+      <div class="kpi-value">127</div>
+      <div class="kpi-sub">Solo 7.2% de los leads</div>
+    </div>
+  </div>
+</div>
+
+<!-- HALLAZGOS CRÍTICOS -->
+<div class="section">
+  <div class="section-label">02 · Lo que Mueve La Aguja</div>
+  <div class="section-title">Hallazgos Críticos</div>
+  <div class="section-divider"></div>
+  <div class="section-desc">
+    Los 6 hallazgos que más impactan la operación. Algunos son oportunidades gigantes; otros son fugas que están sangrando el negocio. Ordenados por tamaño del impacto.
+  </div>
+
+  <div class="insight insight-red">
+    <div class="insight-title"><span class="num">1</span> 693 leads mueren automáticamente por configuración del CRM</div>
+    <div class="insight-body">
+      De los <strong>703 leads marcados "LOST"</strong>, la razón más común — con diferencia — es <span class="highlight">"EXCEEDS DEALER AGE SETTING"</span> con <strong>693 leads</strong>. Esto significa que el CRM los está matando solos porque pasaron cierto número de días sin acción. No es que el cliente no haya comprado: es que <strong>nadie los trabajó a tiempo y el sistema los cerró</strong>. Eso es 39% de todos los leads del periodo, muriendo sin pelea.
+    </div>
+    <div class="insight-action">
+      Revisa el "dealer age setting" en el CRM. Sony debe tocar cada lead antes de que cumpla ese umbral. Esto es el fix #1 de la semana.
+    </div>
+  </div>
+
+  <div class="insight insight-red">
+    <div class="insight-title"><span class="num">2</span> 1,214 leads (69%) sin sales rep asignado visible</div>
+    <div class="insight-body">
+      El campo "sales rep" aparece vacío en <strong>1,214 de 1,759 leads</strong>. Andrés tiene 291 asignados, Elio 240, Manuela 14. El resto — la mayoría — no tiene dueño claro al crearse. Cuando un lead no tiene responsable, nadie lo trabaja y cae al punto #1 (muere por age setting).
+    </div>
+    <div class="insight-action">
+      Round-robin automático en GoHighLevel al crear el lead. Regla de negocio: todo lead debe tener owner en menos de 60 segundos.
+    </div>
+  </div>
+
+  <div class="insight">
+    <div class="insight-title"><span class="num">3</span> OUR WEBSITE cierra al 52% — CarGurus al 4.7%</div>
+    <div class="insight-body">
+      Tu propia página web convierte <span class="highlight">51.7%</span> (61 deals de 118 leads). <strong>CarGurus y todas sus variantes sumadas</strong> (CarGurus base, Area Boost, Reengagement, Pre-Qualified, Digital Deal, etc.) generan <strong>741 leads → ~35 deals ≈ 4.7% conversión</strong>. Tu website es <strong>11 veces más eficiente</strong> que CarGurus por lead.
+    </div>
+    <div class="insight-action">
+      Meter presión a SEO/tráfico directo al website. La pregunta honesta: ¿justifica el gasto de CarGurus cuando cierras al 4.7%? Revisa el costo por deal cerrado, no por lead.
+    </div>
+  </div>
+
+  <div class="insight">
+    <div class="insight-title"><span class="num">4</span> Backend gross en ~$116 por deal — dinero sobre la mesa</div>
+    <div class="insight-body">
+      Front gross promedio: <strong>$4,218</strong>. Backend gross promedio: <span class="highlight">$116</span>. Un dealer que vende usados y financia puede sacar $800-$2,000+ de backend por deal (GAP, warranty, service contracts). Tu backend está básicamente en cero. Eso son potencialmente <strong>$100K-$300K adicionales</strong> en 6 meses que no están entrando.
+    </div>
+    <div class="insight-action">
+      F&I es el siguiente proyecto después de arreglar el funnel. Aquí Nova Driver + un agente de educación financiera post-venta puede empujar productos de backend sin presión.
+    </div>
+  </div>
+
+  <div class="insight">
+    <div class="insight-title"><span class="num">5</span> Ford Escape 2017 es el vehículo #1 — 12 unidades en 6 meses</div>
+    <div class="insight-body">
+      Ford domina: <strong>73 deals</strong> sobre Ford (24% de las ventas). El <strong>Ford Escape 2017</strong> solo mueve <strong>12 unidades</strong>, el doble del segundo. Nissan es #2 con 59 deals. Juntos Ford+Nissan = 45% de todo lo que vendes. El promedio de precio está en <strong>$10,885</strong> — estás en el rango "usado económico-medio", no en el premium.
+    </div>
+    <div class="insight-action">
+      Doble down en inventario Ford/Nissan. Contenido de Nova Driver debería tener reviews específicos del Escape 2017, Altima, Rogue — lo que la gente realmente compra en tu lote.
+    </div>
+  </div>
+
+  <div class="insight">
+    <div class="insight-title"><span class="num">6</span> CARZING: 71 leads, 0 ventas confirmadas</div>
+    <div class="insight-body">
+      <span class="highlight">CARZING generó 71 leads y 0 deals cerrados</span> en el periodo. También CARS.COM SHOPPER ALERT (9 leads, 0), CARGURUS - SOFT PULL (8 leads, 0). Es fuente muerta. Si estás pagando por ellos, es hemorragia pura.
+    </div>
+    <div class="insight-action">
+      Validar contratos activos con cada proveedor. Si hay costo fijo mensual, cortar CARZING ya. Si es solo per-lead, mantener solo mientras la conversión suba a >3%.
+    </div>
+  </div>
+</div>
+
+<!-- EVOLUCIÓN MENSUAL -->
+<div class="section">
+  <div class="section-label">03 · Trayectoria</div>
+  <div class="section-title">Evolución Mensual</div>
+  <div class="section-divider"></div>
+  <div class="section-desc">
+    Cómo se comportaron leads, deals y gross mes a mes. Diciembre 2025 fue el pico de gross ($333K) — enero bajó fuerte a pesar de que los leads subieron.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Leads vs Deals por Mes</div>
+      <div class="card-subtitle">Volumen que entra al funnel vs contratos escritos</div>
+      <div class="chart-box"><canvas id="chartMonthly"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Gross Total por Mes</div>
+      <div class="card-subtitle">Suma del Total Gross de todos los deals firmados ese mes</div>
+      <div class="chart-box"><canvas id="chartGross"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- FUENTES DE LEADS -->
+<div class="section">
+  <div class="section-label">04 · Origen del Tráfico</div>
+  <div class="section-title">Análisis de Fuentes</div>
+  <div class="section-divider"></div>
+  <div class="section-desc">
+    De dónde vienen los leads y cuáles realmente cierran. La tabla de conversión es el corazón: muchos leads no significan muchas ventas.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Top 10 Fuentes por Volumen</div>
+      <div class="card-subtitle">Cantidad de leads generados por cada fuente</div>
+      <div class="chart-box-tall"><canvas id="chartSources"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Tipo de Lead</div>
+      <div class="card-subtitle">Cómo llega el cliente por primera vez</div>
+      <div class="chart-box-tall"><canvas id="chartLeadType"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:24px;">
+    <div class="card-title">Conversión por Fuente — La Tabla que Importa</div>
+    <div class="card-subtitle">
+      Match aproximado de nombres entre archivo de leads y archivo de deals. Interpretar con margen de error, pero las magnitudes son claras.
+    </div>
+    <div style="overflow-x:auto;">
+      <table class="crew-table">
+        <thead>
+          <tr>
+            <th>Fuente</th>
+            <th class="num">Leads</th>
+            <th class="num">Deals</th>
+            <th class="num">Conversión</th>
+            <th>Veredicto</th>
+          </tr>
+        </thead>
+        <tbody id="convTableBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- STATUS & DEAL STATUS -->
+<div class="section">
+  <div class="section-label">05 · El Estado del Funnel</div>
+  <div class="section-title">Status de Leads y Deals</div>
+  <div class="section-divider"></div>
+  <div class="section-desc">
+    ¿Qué pasa con los leads que entran? ¿Y qué pasa con los deals que se escriben? Dos embudos distintos, dos problemas distintos.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Status de los Leads</div>
+      <div class="card-subtitle">Dónde terminan los 1,759 leads del periodo</div>
+      <div class="chart-box-tall"><canvas id="chartLeadStatus"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Status de los Deals Escritos</div>
+      <div class="card-subtitle">Qué pasa con los 297 deals firmados</div>
+      <div class="chart-box-tall"><canvas id="chartDealStatus"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:24px;">
+    <div class="card">
+      <div class="card-title">Razones de Pérdida de Leads</div>
+      <div class="card-subtitle">Por qué se perdieron los leads marcados LOST — el hallazgo #1</div>
+      <div class="chart-box"><canvas id="chartLostReasons"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Credit App Completadas</div>
+      <div class="card-subtitle">Cuántos leads llegaron a llenar la credit application</div>
+      <div class="chart-box"><canvas id="chartCreditApp"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- INVENTARIO / VEHÍCULOS -->
+<div class="section">
+  <div class="section-label">06 · Qué Se Está Vendiendo</div>
+  <div class="section-title">Inventario y Vehículos</div>
+  <div class="section-divider"></div>
+  <div class="section-desc">
+    Las marcas y modelos que están moviendo la operación. Esto define qué tipo de inventario seguir comprando y qué contenido hacer.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Top Marcas Vendidas</div>
+      <div class="card-subtitle">Número de deals por Make en los últimos 6 meses</div>
+      <div class="chart-box"><canvas id="chartMakes"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Top 10 Modelos Específicos</div>
+      <div class="card-subtitle">Combinación Año + Marca + Modelo con más deals</div>
+      <div class="chart-box"><canvas id="chartVehicles"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:24px;">
+    <div class="card-title">Tipos de Deal</div>
+    <div class="card-subtitle">Cómo se están cerrando los 297 deals: cash, finance, BHPH o wholesale</div>
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap:16px; margin-top:20px;">
+      <div style="background:var(--bg-panel); border-left:3px solid var(--gold); padding:20px;">
+        <div style="font-family:var(--font-display); font-size:32px; font-weight:900; color:var(--gold);">152</div>
+        <div style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-muted); margin-top:4px;">FINANCE · 51%</div>
+        <div style="font-size:12px; color:var(--text-sec); margin-top:6px;">La mayoría financia, no pagan en efectivo</div>
+      </div>
+      <div style="background:var(--bg-panel); border-left:3px solid var(--gold); padding:20px;">
+        <div style="font-family:var(--font-display); font-size:32px; font-weight:900; color:var(--gold);">64</div>
+        <div style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-muted); margin-top:4px;">CASH · 22%</div>
+        <div style="font-size:12px; color:var(--text-sec); margin-top:6px;">Pagos en efectivo directo</div>
+      </div>
+      <div style="background:var(--bg-panel); border-left:3px solid var(--gold); padding:20px;">
+        <div style="font-family:var(--font-display); font-size:32px; font-weight:900; color:var(--gold);">49</div>
+        <div style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-muted); margin-top:4px;">BHPH · 16%</div>
+        <div style="font-size:12px; color:var(--text-sec); margin-top:6px;">Buy Here Pay Here — financiamiento propio</div>
+      </div>
+      <div style="background:var(--bg-panel); border-left:3px solid var(--gold); padding:20px;">
+        <div style="font-family:var(--font-display); font-size:32px; font-weight:900; color:var(--gold);">32</div>
+        <div style="font-size:11px; letter-spacing:0.2em; text-transform:uppercase; color:var(--text-muted); margin-top:4px;">WHOLESALE · 11%</div>
+        <div style="font-size:12px; color:var(--text-sec); margin-top:6px;">Ventas a otros dealers</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PERFORMANCE SALES REPS -->
+<div class="section">
+  <div class="section-label">07 · Quién Cierra</div>
+  <div class="section-title">Performance del Equipo</div>
+  <div class="section-divider"></div>
+  <div class="section-desc">
+    Comparación entre leads asignados y deals realmente cerrados por cada persona. Nota: el campo "Last Updated By" en deals no es exactamente el cerrador, pero da una aproximación.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title">Leads Asignados por Rep</div>
+      <div class="card-subtitle">Basado en campo "Sales Rep" en la creación del lead</div>
+      <div class="chart-box"><canvas id="chartRepLeads"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="card-title">Deals Tocados por Rep</div>
+      <div class="card-subtitle">Basado en campo "Last Updated By" del deal</div>
+      <div class="chart-box"><canvas id="chartRepDeals"></canvas></div>
+    </div>
+  </div>
+</div>
+
+<!-- PLAN DE ACCIÓN -->
+<div class="section">
+  <div class="section-label">08 · El Siguiente Paso</div>
+  <div class="section-title">Plan de Acción Priorizado</div>
+  <div class="section-divider"></div>
+  <div class="section-desc">
+    Lo que la data dice que hay que arreglar. Ordenado por impacto y facilidad de implementación — los de arriba son los que mueven más la aguja con menos esfuerzo.
+  </div>
+
+  <div class="grid-2">
+    <div class="card" style="border-color: var(--red); box-shadow: 0 0 10px rgba(244,67,54,0.2);">
+      <div class="card-title" style="color: var(--red);">URGENTE · Esta Semana</div>
+      <ul style="list-style:none; padding:0; margin:0;">
+        <li style="padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display:flex; gap:12px; align-items:start;">
+          <span style="background:var(--red); color:#fff; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:11px; font-weight:900; flex-shrink:0;">01</span>
+          <div>
+            <div style="font-family:var(--font-heading); font-weight:700; color:var(--text); margin-bottom:4px;">Fix del "Dealer Age Setting"</div>
+            <div style="font-size:13px; color:var(--text-sec);">Revisar y extender el umbral o crear alerta antes de que el CRM mate el lead. 693 leads perdidos por esto.</div>
+          </div>
+        </li>
+        <li style="padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display:flex; gap:12px; align-items:start;">
+          <span style="background:var(--red); color:#fff; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:11px; font-weight:900; flex-shrink:0;">02</span>
+          <div>
+            <div style="font-family:var(--font-heading); font-weight:700; color:var(--text); margin-bottom:4px;">Round-robin automático de asignación</div>
+            <div style="font-size:13px; color:var(--text-sec);">69% de leads sin dueño. Regla en GHL: asignar en menos de 60s al crearse.</div>
+          </div>
+        </li>
+        <li style="padding: 14px 0; display:flex; gap:12px; align-items:start;">
+          <span style="background:var(--red); color:#fff; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:11px; font-weight:900; flex-shrink:0;">03</span>
+          <div>
+            <div style="font-family:var(--font-heading); font-weight:700; color:var(--text); margin-bottom:4px;">Cortar CARZING</div>
+            <div style="font-size:13px; color:var(--text-sec);">71 leads, cero conversión confirmada. Si hay contrato fijo, cancelar hoy.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="card" style="border-color: var(--gold);">
+      <div class="card-title">ALTA · Próximos 30 Días</div>
+      <ul style="list-style:none; padding:0; margin:0;">
+        <li style="padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display:flex; gap:12px; align-items:start;">
+          <span style="background:var(--gold); color:#111; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:11px; font-weight:900; flex-shrink:0;">04</span>
+          <div>
+            <div style="font-family:var(--font-heading); font-weight:700; color:var(--text); margin-bottom:4px;">Empujar tráfico directo al website</div>
+            <div style="font-size:13px; color:var(--text-sec);">Convierte 11× mejor que CarGurus. SEO local, contenido Nova Driver con CTA al website.</div>
+          </div>
+        </li>
+        <li style="padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display:flex; gap:12px; align-items:start;">
+          <span style="background:var(--gold); color:#111; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:11px; font-weight:900; flex-shrink:0;">05</span>
+          <div>
+            <div style="font-family:var(--font-heading); font-weight:700; color:var(--text); margin-bottom:4px;">Atacar el backend gross</div>
+            <div style="font-size:13px; color:var(--text-sec);">$116 promedio es casi cero. Entrenar a Andrés en GAP/warranty. Objetivo: $500 backend en 60 días.</div>
+          </div>
+        </li>
+        <li style="padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display:flex; gap:12px; align-items:start;">
+          <span style="background:var(--gold); color:#111; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:11px; font-weight:900; flex-shrink:0;">06</span>
+          <div>
+            <div style="font-family:var(--font-heading); font-weight:700; color:var(--text); margin-bottom:4px;">Auditar fuentes CarGurus</div>
+            <div style="font-size:13px; color:var(--text-sec);">12 variantes diferentes de CarGurus. Area Boost solo 4.7% conversión. Revisar cuáles matar.</div>
+          </div>
+        </li>
+        <li style="padding: 14px 0; display:flex; gap:12px; align-items:start;">
+          <span style="background:var(--gold); color:#111; width:24px; height:24px; border-radius:50%; display:inline-flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:11px; font-weight:900; flex-shrink:0;">07</span>
+          <div>
+            <div style="font-family:var(--font-heading); font-weight:700; color:var(--text); margin-bottom:4px;">Tagging de walk-ins</div>
+            <div style="font-size:13px; color:var(--text-sec);">Solo 19 walk-ins reportados en 6 meses — obvio que están mal etiquetados. Crear protocolo.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div class="footer">
+  <div class="brand">The Crew Autos · Drive Your Dream</div>
+  <div style="margin-top:8px;">Dashboard generado · 18 Abril 2026 · Süpernova Lab</div>
+</div>
+
+<script>
+// =============================
+// CHART.JS GLOBAL CONFIG
+// =============================
+Chart.defaults.color = '#CCCCCC';
+Chart.defaults.font.family = 'Inter, sans-serif';
+Chart.defaults.font.size = 12;
+Chart.defaults.plugins.legend.labels.color = '#FFFFFF';
+Chart.defaults.plugins.tooltip.backgroundColor = '#0D0D0D';
+Chart.defaults.plugins.tooltip.borderColor = '#F5C518';
+Chart.defaults.plugins.tooltip.borderWidth = 1;
+Chart.defaults.plugins.tooltip.titleColor = '#F5C518';
+Chart.defaults.plugins.tooltip.bodyColor = '#FFFFFF';
+Chart.defaults.plugins.tooltip.padding = 12;
+Chart.defaults.plugins.tooltip.titleFont = { weight: 700 };
+
+const GOLD = '#F5C518';
+const GOLD_BRIGHT = '#FFD700';
+const GOLD_DARK = '#C9A227';
+const GREEN = '#4CAF50';
+const RED = '#F44336';
+const GRAY = '#666666';
+
+// Common grid/axis styling
+const axisStyle = {
+  ticks: { color: '#888', font: { size: 11 } },
+  grid: { color: 'rgba(255,255,255,0.04)' }
+};
+
+// =============================
+// DATA
+// =============================
+const DATA = {
+  "monthly": [
+    {"month": "2025-10", "leads": 0, "deals": 15, "gross": 32559.27},
+    {"month": "2025-11", "leads": 0, "deals": 43, "gross": 149232.81},
+    {"month": "2025-12", "leads": 166, "deals": 50, "gross": 333341.52},
+    {"month": "2026-01", "leads": 441, "deals": 40, "gross": 191849.48},
+    {"month": "2026-02", "leads": 374, "deals": 52, "gross": 186328.14},
+    {"month": "2026-03", "leads": 457, "deals": 58, "gross": 239816.08},
+    {"month": "2026-04", "leads": 321, "deals": 39, "gross": 154050.78}
+  ],
+  "sources_top": [
+    {"source": "CARGURUS", "leads": 334},
+    {"source": "Teléfonos desconocidos", "leads": 301},
+    {"source": "CARFAX", "leads": 291},
+    {"source": "HAMMER CORP.", "leads": 244},
+    {"source": "OUR WEBSITE", "leads": 118},
+    {"source": "CARGURUS - Digital Deal", "leads": 86},
+    {"source": "CARZING", "leads": 71},
+    {"source": "CARGURUS Area Boost", "leads": 64},
+    {"source": "CARGURUS Reengagement", "leads": 48},
+    {"source": "CARGURUS Pre-Qualified", "leads": 40}
+  ],
+  "lead_types": [
+    {"type": "INTERNET", "count": 1319},
+    {"type": "PHONE", "count": 412},
+    {"type": "WALK-IN", "count": 19},
+    {"type": "SMS", "count": 5}
+  ],
+  "lead_statuses": [
+    {"status": "LOST", "count": 703},
+    {"status": "DUPLICATE", "count": 654},
+    {"status": "CONTACTED", "count": 169},
+    {"status": "CONTACT ATTEMPT", "count": 155},
+    {"status": "SOLD", "count": 49},
+    {"status": "WORKING DEAL", "count": 14},
+    {"status": "MISSED APPT FOLLOW-UPS", "count": 12},
+    {"status": "APPT SCHEDULED", "count": 2}
+  ],
+  "deal_statuses": [
+    {"status": "SOLD - FUNDED", "count": 104},
+    {"status": "DEAD DEAL", "count": 99},
+    {"status": "PENDING - WORKING LEAD", "count": 39},
+    {"status": "SOLD - BHPH", "count": 33},
+    {"status": "SOLD - CONTRACT IN TRANSIT", "count": 8},
+    {"status": "SOLD - NEEDS FUNDING", "count": 6},
+    {"status": "SOLD - WAITING FOR TITLE", "count": 6},
+    {"status": "UNWOUND", "count": 1},
+    {"status": "SOLD - NEEDS FINANCING", "count": 1}
+  ],
+  "lost_reasons": [
+    {"reason": "EXCEEDS DEALER AGE SETTING", "count": 693},
+    {"reason": "DUPLICATE", "count": 7},
+    {"reason": "SPAM", "count": 1},
+    {"reason": "FRAUDULENT", "count": 1},
+    {"reason": "PROSPECT REQUESTED DNC", "count": 1}
+  ],
+  "credit_app": [
+    {"label": "No completada", "count": 1632},
+    {"label": "Completada", "count": 127}
+  ],
+  "top_makes": [
+    {"make": "FORD", "count": 73},
+    {"make": "NISSAN", "count": 59},
+    {"make": "CHEVROLET", "count": 19},
+    {"make": "MAZDA", "count": 18},
+    {"make": "TOYOTA", "count": 18},
+    {"make": "KIA", "count": 16},
+    {"make": "JEEP", "count": 15},
+    {"make": "RAM", "count": 14},
+    {"make": "HONDA", "count": 13},
+    {"make": "HYUNDAI", "count": 10}
+  ],
+  "top_vehicles": [
+    {"vehicle": "2017 Ford Escape", "count": 12},
+    {"vehicle": "2018 Nissan Altima", "count": 6},
+    {"vehicle": "2015 Ford Transit 250", "count": 5},
+    {"vehicle": "2015 Chevrolet Tahoe", "count": 5},
+    {"vehicle": "2015 Jeep Wrangler", "count": 4},
+    {"vehicle": "2018 Ford Escape", "count": 4},
+    {"vehicle": "2018 Honda Odyssey", "count": 4},
+    {"vehicle": "2019 Nissan Altima", "count": 4},
+    {"vehicle": "2018 Toyota Camry", "count": 4},
+    {"vehicle": "2016 Nissan Rogue", "count": 4}
+  ],
+  "reps_leads": [
+    {"rep": "Andrés Madrid", "leads": 291},
+    {"rep": "Elio Casas", "leads": 240},
+    {"rep": "Manuela Duque", "leads": 14},
+    {"rep": "Sin asignar", "leads": 1214}
+  ],
+  "reps_deals": [
+    {"rep": "Manuela Duque", "deals": 177},
+    {"rep": "System User", "deals": 99},
+    {"rep": "Westlake CRM", "deals": 10},
+    {"rep": "Andrés Madrid", "deals": 5},
+    {"rep": "Elio Casas", "deals": 4},
+    {"rep": "CarPay", "deals": 2}
+  ],
+  "conversion_by_source": [
+    {"source": "OUR WEBSITE", "leads": 118, "deals": 61, "conversion": 51.7},
+    {"source": "CARGURUS - CREDIT APP", "leads": 29, "deals": 5, "conversion": 17.2},
+    {"source": "CARGURUS Reengagement", "leads": 48, "deals": 4, "conversion": 8.3},
+    {"source": "CARGURUS - Digital Deal", "leads": 86, "deals": 7, "conversion": 8.1},
+    {"source": "CARGURUS Pre-Qualified", "leads": 40, "deals": 3, "conversion": 7.5},
+    {"source": "CARFAX", "leads": 291, "deals": 16, "conversion": 5.5},
+    {"source": "HAMMER CORP.", "leads": 244, "deals": 12, "conversion": 4.9},
+    {"source": "CARGURUS Area Boost", "leads": 64, "deals": 3, "conversion": 4.7},
+    {"source": "CARGURUS base", "leads": 334, "deals": 12, "conversion": 3.6},
+    {"source": "Teléfonos desconocidos", "leads": 301, "deals": 3, "conversion": 1.0},
+    {"source": "CARZING", "leads": 71, "deals": 0, "conversion": 0.0},
+    {"source": "CARS.COM Shopper Alert", "leads": 9, "deals": 0, "conversion": 0.0}
+  ]
+};
+
+// =============================
+// MONTHLY: LEADS vs DEALS
+// =============================
+new Chart(document.getElementById('chartMonthly'), {
+  type: 'bar',
+  data: {
+    labels: DATA.monthly.map(d => d.month),
+    datasets: [
+      {
+        label: 'Leads',
+        data: DATA.monthly.map(d => d.leads),
+        backgroundColor: 'rgba(245, 197, 24, 0.75)',
+        borderColor: GOLD,
+        borderWidth: 1,
+        borderRadius: 4
+      },
+      {
+        label: 'Deals',
+        data: DATA.monthly.map(d => d.deals),
+        backgroundColor: 'rgba(255, 215, 0, 0.35)',
+        borderColor: GOLD_BRIGHT,
+        borderWidth: 1,
+        borderRadius: 4,
+        yAxisID: 'y1'
+      }
+    ]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: { ...axisStyle, title: { display: true, text: 'Leads', color: GOLD } },
+      y1: { ...axisStyle, position: 'right', grid: { drawOnChartArea: false }, title: { display: true, text: 'Deals', color: GOLD_BRIGHT } },
+      x: axisStyle
+    }
+  }
+});
+
+// =============================
+// GROSS BY MONTH
+// =============================
+new Chart(document.getElementById('chartGross'), {
+  type: 'line',
+  data: {
+    labels: DATA.monthly.map(d => d.month),
+    datasets: [{
+      label: 'Gross Total',
+      data: DATA.monthly.map(d => d.gross),
+      borderColor: GOLD,
+      backgroundColor: 'rgba(245, 197, 24, 0.15)',
+      tension: 0.35,
+      fill: true,
+      pointBackgroundColor: GOLD_BRIGHT,
+      pointBorderColor: '#111',
+      pointRadius: 6,
+      pointHoverRadius: 9,
+      borderWidth: 3
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: ctx => '$' + ctx.parsed.y.toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:0})
+        }
+      }
+    },
+    scales: {
+      y: { ...axisStyle, ticks: { ...axisStyle.ticks, callback: v => '$' + (v/1000) + 'K' } },
+      x: axisStyle
+    }
+  }
+});
+
+// =============================
+// SOURCES (horizontal bar)
+// =============================
+new Chart(document.getElementById('chartSources'), {
+  type: 'bar',
+  data: {
+    labels: DATA.sources_top.map(s => s.source),
+    datasets: [{
+      label: 'Leads',
+      data: DATA.sources_top.map(s => s.leads),
+      backgroundColor: (ctx) => {
+        const src = DATA.sources_top[ctx.dataIndex].source;
+        return src === 'OUR WEBSITE' ? GOLD_BRIGHT : 'rgba(245, 197, 24, 0.7)';
+      },
+      borderColor: GOLD,
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { x: axisStyle, y: { ...axisStyle, ticks: { ...axisStyle.ticks, color: '#fff' } } }
+  }
+});
+
+// =============================
+// LEAD TYPE (doughnut)
+// =============================
+new Chart(document.getElementById('chartLeadType'), {
+  type: 'doughnut',
+  data: {
+    labels: DATA.lead_types.map(l => l.type),
+    datasets: [{
+      data: DATA.lead_types.map(l => l.count),
+      backgroundColor: [GOLD, GOLD_BRIGHT, GOLD_DARK, '#8A7018'],
+      borderColor: '#111',
+      borderWidth: 3
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '60%',
+    plugins: {
+      legend: { position: 'bottom', labels: { padding: 16, font: {size: 12} } }
+    }
+  }
+});
+
+// =============================
+// CONVERSION TABLE
+// =============================
+const convBody = document.getElementById('convTableBody');
+DATA.conversion_by_source.forEach(row => {
+  let tagClass = 'tag-bad';
+  let verdict = 'Revisar urgente';
+  if (row.conversion >= 30) { tagClass = 'tag-good'; verdict = 'Excelente — protegerlo'; }
+  else if (row.conversion >= 8) { tagClass = 'tag-mid'; verdict = 'Aceptable'; }
+  else if (row.conversion >= 3) { tagClass = 'tag-bad'; verdict = 'Marginal'; }
+  else { tagClass = 'tag-dead'; verdict = 'Fuente muerta'; }
+
+  convBody.innerHTML += `
+    <tr>
+      <td style="color:#fff; font-weight:600;">${row.source}</td>
+      <td class="num">${row.leads}</td>
+      <td class="num">${row.deals}</td>
+      <td class="num" style="color:${row.conversion >= 30 ? GREEN : row.conversion >= 8 ? GOLD : row.conversion >= 3 ? '#FFA500' : RED}; font-weight:700;">${row.conversion}%</td>
+      <td><span class="tag ${tagClass}">${verdict}</span></td>
+    </tr>
+  `;
+});
+
+// =============================
+// LEAD STATUS
+// =============================
+new Chart(document.getElementById('chartLeadStatus'), {
+  type: 'bar',
+  data: {
+    labels: DATA.lead_statuses.map(s => s.status),
+    datasets: [{
+      label: 'Leads',
+      data: DATA.lead_statuses.map(s => s.count),
+      backgroundColor: (ctx) => {
+        const lbl = DATA.lead_statuses[ctx.dataIndex].status;
+        if (lbl === 'LOST') return 'rgba(244, 67, 54, 0.7)';
+        if (lbl === 'SOLD') return GREEN;
+        if (lbl === 'WORKING DEAL' || lbl === 'APPT SCHEDULED') return GOLD_BRIGHT;
+        return 'rgba(245, 197, 24, 0.5)';
+      },
+      borderColor: (ctx) => {
+        const lbl = DATA.lead_statuses[ctx.dataIndex].status;
+        return lbl === 'LOST' ? RED : lbl === 'SOLD' ? GREEN : GOLD;
+      },
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { x: axisStyle, y: { ...axisStyle, ticks: { ...axisStyle.ticks, color: '#fff' } } }
+  }
+});
+
+// =============================
+// DEAL STATUS
+// =============================
+new Chart(document.getElementById('chartDealStatus'), {
+  type: 'bar',
+  data: {
+    labels: DATA.deal_statuses.map(s => s.status.replace('SOLD - ', '')),
+    datasets: [{
+      label: 'Deals',
+      data: DATA.deal_statuses.map(s => s.count),
+      backgroundColor: (ctx) => {
+        const lbl = DATA.deal_statuses[ctx.dataIndex].status;
+        if (lbl === 'DEAD DEAL' || lbl === 'UNWOUND') return 'rgba(244, 67, 54, 0.7)';
+        if (lbl.startsWith('SOLD')) return GREEN;
+        if (lbl.startsWith('PENDING')) return GOLD_BRIGHT;
+        return 'rgba(245, 197, 24, 0.5)';
+      },
+      borderColor: (ctx) => {
+        const lbl = DATA.deal_statuses[ctx.dataIndex].status;
+        if (lbl === 'DEAD DEAL') return RED;
+        if (lbl.startsWith('SOLD')) return GREEN;
+        return GOLD;
+      },
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { x: axisStyle, y: { ...axisStyle, ticks: { ...axisStyle.ticks, color: '#fff', font: {size: 11} } } }
+  }
+});
+
+// =============================
+// LOST REASONS
+// =============================
+new Chart(document.getElementById('chartLostReasons'), {
+  type: 'bar',
+  data: {
+    labels: DATA.lost_reasons.map(r => r.reason),
+    datasets: [{
+      label: 'Leads perdidos',
+      data: DATA.lost_reasons.map(r => r.count),
+      backgroundColor: (ctx) => ctx.dataIndex === 0 ? 'rgba(244, 67, 54, 0.85)' : 'rgba(245, 197, 24, 0.5)',
+      borderColor: (ctx) => ctx.dataIndex === 0 ? RED : GOLD,
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { x: axisStyle, y: { ...axisStyle, ticks: { ...axisStyle.ticks, color: '#fff', font: {size: 11} } } }
+  }
+});
+
+// =============================
+// CREDIT APP
+// =============================
+new Chart(document.getElementById('chartCreditApp'), {
+  type: 'doughnut',
+  data: {
+    labels: DATA.credit_app.map(c => c.label),
+    datasets: [{
+      data: DATA.credit_app.map(c => c.count),
+      backgroundColor: ['rgba(244, 67, 54, 0.7)', GOLD],
+      borderColor: '#111',
+      borderWidth: 3
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    cutout: '65%',
+    plugins: {
+      legend: { position: 'bottom', labels: { padding: 16, font: {size: 12} } }
+    }
+  }
+});
+
+// =============================
+// TOP MAKES
+// =============================
+new Chart(document.getElementById('chartMakes'), {
+  type: 'bar',
+  data: {
+    labels: DATA.top_makes.map(m => m.make),
+    datasets: [{
+      label: 'Deals',
+      data: DATA.top_makes.map(m => m.count),
+      backgroundColor: (ctx) => {
+        const v = DATA.top_makes[ctx.dataIndex].count;
+        const max = DATA.top_makes[0].count;
+        const alpha = 0.4 + (v / max) * 0.5;
+        return `rgba(245, 197, 24, ${alpha})`;
+      },
+      borderColor: GOLD,
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { x: axisStyle, y: axisStyle }
+  }
+});
+
+// =============================
+// TOP VEHICLES
+// =============================
+new Chart(document.getElementById('chartVehicles'), {
+  type: 'bar',
+  data: {
+    labels: DATA.top_vehicles.map(v => v.vehicle),
+    datasets: [{
+      label: 'Deals',
+      data: DATA.top_vehicles.map(v => v.count),
+      backgroundColor: 'rgba(255, 215, 0, 0.7)',
+      borderColor: GOLD_BRIGHT,
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { x: axisStyle, y: { ...axisStyle, ticks: { ...axisStyle.ticks, color: '#fff', font: {size: 11} } } }
+  }
+});
+
+// =============================
+// REP LEADS
+// =============================
+new Chart(document.getElementById('chartRepLeads'), {
+  type: 'bar',
+  data: {
+    labels: DATA.reps_leads.map(r => r.rep),
+    datasets: [{
+      label: 'Leads asignados',
+      data: DATA.reps_leads.map(r => r.leads),
+      backgroundColor: (ctx) => {
+        const rep = DATA.reps_leads[ctx.dataIndex].rep;
+        return rep === 'Sin asignar' ? 'rgba(244, 67, 54, 0.7)' : GOLD;
+      },
+      borderColor: (ctx) => {
+        const rep = DATA.reps_leads[ctx.dataIndex].rep;
+        return rep === 'Sin asignar' ? RED : GOLD;
+      },
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { x: axisStyle, y: axisStyle }
+  }
+});
+
+// =============================
+// REP DEALS
+// =============================
+new Chart(document.getElementById('chartRepDeals'), {
+  type: 'bar',
+  data: {
+    labels: DATA.reps_deals.map(r => r.rep),
+    datasets: [{
+      label: 'Deals tocados',
+      data: DATA.reps_deals.map(r => r.deals),
+      backgroundColor: GOLD_BRIGHT,
+      borderColor: GOLD,
+      borderWidth: 1,
+      borderRadius: 4
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { x: axisStyle, y: axisStyle }
+  }
+});
+</script>
+
+</body>
+</html>
