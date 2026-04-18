@@ -1,0 +1,1794 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Lead Scout · Operating System · The Crew Autos</title>
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #F5C518;
+  --gold-bright: #FFD700;
+  --gold-dark: #C9A227;
+  --bg-deep: #111111;
+  --bg-card: #1E1E1E;
+  --bg-panel: #2A2A2A;
+  --text: #FFFFFF;
+  --text-sec: #CCCCCC;
+  --text-muted: #888888;
+  --green: #4CAF50;
+  --red: #F44336;
+  --glow-gold: 0 0 20px rgba(245, 197, 24, 0.6);
+  --glow-subtle: 0 0 10px rgba(245, 197, 24, 0.3);
+  --font-display: 'Orbitron', sans-serif;
+  --font-heading: 'Rajdhani', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg-deep);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.6;
+  padding-bottom: 60px;
+}
+
+/* ============ HEADER ============ */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10,10,10,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(245,197,24,0.3);
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--gold);
+  text-shadow: var(--glow-subtle);
+  letter-spacing: 0.05em;
+}
+.logo .white { color: #fff; }
+.nav-tabs {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+.nav-tab {
+  font-family: var(--font-heading);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.nav-tab:hover { color: var(--gold); border-color: rgba(245,197,24,0.3); }
+.nav-tab.active { color: var(--gold); background: rgba(245,197,24,0.1); border-color: var(--gold); box-shadow: var(--glow-subtle); }
+
+/* ============ HERO ============ */
+.hero {
+  padding: 80px 40px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 20%; right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  box-shadow: 0 0 8px var(--gold);
+}
+.hero .eyebrow {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 900;
+  line-height: 1.05;
+  margin-bottom: 14px;
+  text-shadow: var(--glow-gold);
+  letter-spacing: 0.01em;
+}
+.hero h1 .gold { color: var(--gold); }
+.hero .subtitle {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  color: var(--text-sec);
+  letter-spacing: 0.05em;
+  max-width: 700px;
+  margin: 0 auto 28px;
+}
+.hero .meta {
+  display: inline-flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--text-muted);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.hero .meta .v { color: var(--gold); font-weight: 700; }
+
+/* ============ CONTAINER ============ */
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
+
+/* ============ DOCUMENT ============ */
+.doc {
+  padding: 80px 0 40px;
+  border-top: 1px solid rgba(245,197,24,0.15);
+}
+.doc:first-of-type { border-top: none; }
+.doc-header { margin-bottom: 40px; }
+.doc-number {
+  font-family: var(--font-display);
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--gold);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.doc-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 10px;
+}
+.doc-title .gold { color: var(--gold); }
+.doc-kicker {
+  font-family: var(--font-heading);
+  font-size: 15px;
+  color: var(--text-sec);
+  letter-spacing: 0.03em;
+  max-width: 750px;
+  line-height: 1.5;
+}
+.divider-line {
+  height: 1px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--gold) 60px, transparent 60px);
+  margin: 20px 0;
+}
+
+/* ============ SECTION ============ */
+.sec { margin-bottom: 44px; }
+.sec h2 {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sec h2 .num {
+  background: var(--gold);
+  color: #111;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 900;
+  padding: 4px 10px;
+  border-radius: 4px;
+  letter-spacing: 0;
+}
+.sec h3 {
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: var(--text);
+  margin: 24px 0 12px;
+}
+.sec h4 {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 20px 0 10px;
+}
+.sec p { color: var(--text-sec); margin-bottom: 12px; }
+.sec p strong { color: var(--text); font-weight: 600; }
+.sec p .highlight { color: var(--gold); font-weight: 600; }
+.sec ul, .sec ol { color: var(--text-sec); margin: 12px 0 12px 22px; }
+.sec ul li, .sec ol li { margin-bottom: 8px; }
+.sec ul li strong { color: var(--text); font-weight: 600; }
+
+/* ============ CARD ============ */
+.card {
+  background: var(--bg-card);
+  border: 1px solid rgba(245,197,24,0.25);
+  border-radius: 12px;
+  padding: 24px 26px;
+  margin-bottom: 20px;
+}
+.card-gold {
+  border-color: var(--gold);
+  box-shadow: var(--glow-subtle);
+}
+.card-title {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.card-subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 18px;
+}
+
+/* ============ TABLE ============ */
+table.crew {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 14px 0;
+}
+table.crew thead tr {
+  background: var(--gold);
+  color: #111;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+table.crew th, table.crew td {
+  padding: 11px 12px;
+  text-align: left;
+  vertical-align: top;
+}
+table.crew tbody tr { border-bottom: 1px solid rgba(255,255,255,0.04); }
+table.crew tbody tr:nth-child(odd) { background: var(--bg-card); }
+table.crew tbody tr:nth-child(even) { background: var(--bg-panel); }
+table.crew tbody tr:hover { background: rgba(245,197,24,0.08); }
+table.crew td strong { color: #fff; }
+table.crew td.num { text-align: right; font-family: var(--font-heading); font-weight: 600; }
+
+.tag {
+  display: inline-block;
+  font-family: var(--font-heading);
+  font-weight: 700;
+  padding: 2px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.tag-a { background: rgba(76,175,80,0.2); color: var(--green); border: 1px solid var(--green); }
+.tag-b { background: rgba(245,197,24,0.15); color: var(--gold); border: 1px solid var(--gold); }
+.tag-c { background: rgba(136,136,136,0.15); color: var(--text-muted); border: 1px solid var(--text-muted); }
+.tag-skip { background: rgba(244,67,54,0.15); color: var(--red); border: 1px solid var(--red); }
+
+/* ============ CALLOUT ============ */
+.callout {
+  background: linear-gradient(135deg, #1A1A0D 0%, #1E1E1E 100%);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+  padding: 16px 20px;
+  margin: 20px 0;
+}
+.callout-title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.callout-body { color: var(--text-sec); font-size: 14px; line-height: 1.55; }
+.callout-body strong { color: #fff; }
+.callout-red { border-left-color: var(--red); }
+.callout-red .callout-title { color: var(--red); }
+.callout-green { border-left-color: var(--green); }
+.callout-green .callout-title { color: var(--green); }
+
+/* ============ CHECKLIST ============ */
+.check-list { list-style: none; margin-left: 0 !important; padding-left: 0 !important; }
+.check-list li {
+  padding: 8px 0 8px 32px;
+  position: relative;
+  color: var(--text-sec);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.check-list li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 12px;
+  width: 18px; height: 18px;
+  border: 1.5px solid var(--gold);
+  border-radius: 4px;
+  background: rgba(245,197,24,0.08);
+}
+.check-list li:last-child { border-bottom: none; }
+
+/* ============ CODE / PROMPTS ============ */
+.prompt-box {
+  background: #0D0D0D;
+  border: 1px solid rgba(245,197,24,0.3);
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin: 12px 0;
+  font-family: 'Courier New', monospace;
+  font-size: 13px;
+  color: #E8E8E8;
+  white-space: pre-wrap;
+  line-height: 1.5;
+  position: relative;
+}
+.prompt-box::before {
+  content: 'PROMPT';
+  position: absolute;
+  top: -10px; left: 14px;
+  background: var(--gold);
+  color: #111;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  padding: 3px 10px;
+  border-radius: 3px;
+}
+
+.copy-box {
+  background: #0D0D0D;
+  border: 1px solid rgba(245,197,24,0.4);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin: 12px 0;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: #E8E8E8;
+  line-height: 1.55;
+  position: relative;
+  white-space: pre-wrap;
+}
+.copy-box::before {
+  content: attr(data-label);
+  position: absolute;
+  top: -10px; left: 14px;
+  background: var(--gold);
+  color: #111;
+  font-family: var(--font-heading);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  padding: 3px 10px;
+  border-radius: 3px;
+  text-transform: uppercase;
+}
+
+/* ============ SEGMENT CARDS ============ */
+.segment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+  margin: 20px 0;
+}
+.segment-card {
+  background: var(--bg-card);
+  border: 1px solid rgba(245,197,24,0.3);
+  border-radius: 12px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+}
+.segment-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: var(--gold);
+  box-shadow: var(--glow-subtle);
+}
+.segment-card .segment-label {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 900;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.segment-card .segment-name {
+  font-family: var(--font-heading);
+  font-size: 19px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+}
+.segment-card .segment-ticket {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--gold);
+  text-shadow: var(--glow-subtle);
+  margin-bottom: 14px;
+}
+.segment-card ul { margin: 8px 0 8px 18px !important; font-size: 13px; }
+.segment-card ul li { margin-bottom: 4px; color: var(--text-sec); }
+.segment-card .pill {
+  display: inline-block;
+  background: rgba(245,197,24,0.12);
+  border: 1px solid rgba(245,197,24,0.4);
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-size: 11px;
+  color: var(--gold);
+  font-weight: 600;
+  margin: 3px 4px 3px 0;
+  letter-spacing: 0.03em;
+}
+
+/* ============ KPI ============ */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+.kpi-mini {
+  background: var(--bg-panel);
+  border-left: 3px solid var(--gold);
+  padding: 14px 16px;
+  border-radius: 6px;
+}
+.kpi-mini .v {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1;
+}
+.kpi-mini .l {
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 6px;
+  font-weight: 600;
+}
+
+/* ============ FLOW ============ */
+.flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  margin: 20px 0;
+  overflow-x: auto;
+}
+.flow-step {
+  flex: 1;
+  min-width: 160px;
+  background: var(--bg-panel);
+  padding: 16px 14px;
+  border-left: 3px solid var(--gold);
+  position: relative;
+  margin-right: 16px;
+  border-radius: 0 6px 6px 0;
+}
+.flow-step:last-child { margin-right: 0; }
+.flow-step::after {
+  content: '→';
+  position: absolute;
+  right: -18px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  font-size: 18px;
+  font-weight: 700;
+}
+.flow-step:last-child::after { display: none; }
+.flow-step .step-num {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 900;
+  color: var(--gold);
+  letter-spacing: 0.2em;
+  margin-bottom: 4px;
+}
+.flow-step .step-title {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+.flow-step .step-desc {
+  font-size: 11px;
+  color: var(--text-sec);
+  line-height: 1.4;
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  max-width: 1100px;
+  margin: 60px auto 0;
+  padding: 30px 32px;
+  text-align: center;
+  border-top: 1px solid rgba(245,197,24,0.2);
+  color: var(--text-muted);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.footer .brand {
+  color: var(--gold);
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+/* ============ PRINT ============ */
+@media print {
+  body { background: white; color: #111; }
+  .topbar, .hero .meta { display: none; }
+  .card, .segment-card, .kpi-mini, .callout, .prompt-box, .copy-box { page-break-inside: avoid; }
+  .doc { page-break-before: always; border-top: none; padding-top: 20px; }
+  .doc:first-of-type { page-break-before: auto; }
+  .sec h2 { color: #000; }
+  .card { border-color: #aaa; background: #fafafa; }
+  .copy-box, .prompt-box { background: #f5f5f5; color: #111; border-color: #aaa; }
+  .copy-box::before, .prompt-box::before { background: #444; color: #fff; }
+}
+
+@media (max-width: 720px) {
+  .wrap { padding: 0 18px; }
+  .hero { padding: 50px 18px 40px; }
+  .topbar { padding: 12px 16px; }
+  .nav-tabs { width: 100%; overflow-x: auto; }
+  .flow { flex-direction: column; }
+  .flow-step { margin-right: 0; margin-bottom: 14px; }
+  .flow-step::after { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<div class="topbar">
+  <div class="logo"><span class="white">Crew</span>autos <span style="color:#666; font-weight:400; font-size:12px; margin-left:8px; letter-spacing:0.15em;">LEAD SCOUT OS · v1.0</span></div>
+  <div class="nav-tabs">
+    <a href="#fit-map" class="nav-tab">① Fit Map</a>
+    <a href="#playbook" class="nav-tab">② Playbook</a>
+    <a href="#data-request" class="nav-tab">③ Data Request</a>
+  </div>
+</div>
+
+<!-- ============ HERO ============ -->
+<div class="hero">
+  <div class="eyebrow">Süpernova Lab · The Crew Autos</div>
+  <h1>Community <span class="gold">Lead Scout</span><br>Operating System</h1>
+  <div class="subtitle">
+    El sistema completo para convertir Facebook Marketplace, grupos y comunidades en un canal predecible de leads cualificados. Tres documentos que funcionan juntos: estrategia, ejecución y lo que falta.
+  </div>
+  <div class="meta">
+    <span>Versión <span class="v">1.0</span></span>
+    <span>Fecha <span class="v">Abril 2026</span></span>
+    <span>Data <span class="v">330 deals · 1,759 leads · 66 unidades</span></span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- ===========================================================
+     DOCUMENT 1: VEHICLE → CUSTOMER FIT MAP
+=========================================================== -->
+<div class="doc" id="fit-map">
+  <div class="doc-header">
+    <div class="doc-number">Documento 01 · Estrategia</div>
+    <div class="doc-title">Vehicle → Customer <span class="gold">Fit Map</span></div>
+    <div class="divider-line"></div>
+    <div class="doc-kicker">
+      Este es el cerebro del sistema. Define qué vehículo, a qué cliente, con qué mensaje, en qué canal. Sin este mapa, publicar en Marketplace es coreografía sin música. Con él, cada post tiene lógica de negocio detrás.
+    </div>
+  </div>
+
+  <!-- FUNDACIÓN DE DATA -->
+  <div class="sec">
+    <h2><span class="num">01</span> Fundación de Data</h2>
+    <p>El mapa no salió de opinión. Salió de lo que <strong>realmente se vendió</strong> en los últimos 6 meses cruzado con el inventario <strong>que hay hoy en piso</strong>. Estos son los números base sobre los que se construye todo lo demás.</p>
+
+    <div class="kpi-row">
+      <div class="kpi-mini">
+        <div class="v">$10,885</div>
+        <div class="l">Ticket promedio</div>
+      </div>
+      <div class="kpi-mini">
+        <div class="v">$8,985</div>
+        <div class="l">Mediana precio</div>
+      </div>
+      <div class="kpi-mini">
+        <div class="v">51%</div>
+        <div class="l">Cierra financiado</div>
+      </div>
+      <div class="kpi-mini">
+        <div class="v">16%</div>
+        <div class="l">BHPH (financiamiento propio)</div>
+      </div>
+      <div class="kpi-mini">
+        <div class="v">22%</div>
+        <div class="l">Cash</div>
+      </div>
+      <div class="kpi-mini">
+        <div class="v">66</div>
+        <div class="l">Unidades activas hoy</div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">La lectura dura</div>
+      <div class="callout-body">
+        The Crew vende <strong>ticket bajo/medio, no ticket alto</strong>. La mitad de las ventas están por debajo de <strong>$9K</strong>. Eso significa que el Scout no está vendiendo "carros aspiracionales" — está vendiendo <strong>soluciones de movilidad para gente que necesita un carro confiable, rápido, financiable</strong>. Esa distinción cambia el copy, el tono, el canal y el tipo de cliente que hay que cazar.
+      </div>
+    </div>
+
+    <h3>Los caballos de batalla (lo que realmente se vende)</h3>
+    <table class="crew">
+      <thead>
+        <tr>
+          <th>Marca</th>
+          <th class="num">Deals 6M</th>
+          <th>Modelos que más rotan</th>
+          <th>Precio típico</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>FORD</strong></td><td class="num">73</td><td>Escape (17 y 18), F-150, Transit</td><td>$7.5K–$26K</td></tr>
+        <tr><td><strong>NISSAN</strong></td><td class="num">59</td><td>Altima, Rogue, Pathfinder, Titan</td><td>$6.7K–$17.5K</td></tr>
+        <tr><td><strong>CHEVROLET</strong></td><td class="num">19</td><td>Tahoe, Equinox</td><td>$12K–$14K</td></tr>
+        <tr><td><strong>MAZDA</strong></td><td class="num">18</td><td>MAZDA6, CX-9</td><td>$9.8K–$12K</td></tr>
+        <tr><td><strong>TOYOTA</strong></td><td class="num">18</td><td>Camry, RAV4</td><td>$11K–$23K</td></tr>
+        <tr><td><strong>KIA</strong></td><td class="num">16</td><td>Sorento, Forte</td><td>$11K–$14K</td></tr>
+        <tr><td><strong>JEEP</strong></td><td class="num">15</td><td>Wrangler, Cherokee</td><td>$13K–$24K</td></tr>
+        <tr><td><strong>HONDA</strong></td><td class="num">13</td><td>Odyssey, HR-V, Accord</td><td>$12K–$16K</td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Ford + Nissan = 45% de todo lo que vendes.</strong> El <span class="highlight">Ford Escape 2017</span> solo mueve 12 unidades (doble del #2). Esto define dónde poner el foco.</p>
+  </div>
+
+  <!-- CUSTOMER SEGMENTS -->
+  <div class="sec">
+    <h2><span class="num">02</span> Los 4 Segmentos del Buyer</h2>
+    <p>Después de cruzar la data de ventas con los tipos de financiamiento, el ticket y el pattern de inventario, salen <strong>4 segmentos claros</strong>. Cada uno necesita mensaje, canal y ángulo distintos. El Scout debe identificar en qué segmento cae cada conversación antes de contestar.</p>
+
+    <div class="segment-grid">
+
+      <div class="segment-card">
+        <div class="segment-label">SEGMENTO A</div>
+        <div class="segment-name">Primer Carro Propio</div>
+        <div class="segment-ticket">$6K – $10K</div>
+        <ul>
+          <li><strong>Quién:</strong> recién llegado al país, joven trabajador, crédito débil o nulo</li>
+          <li><strong>Necesidad:</strong> carro para ir al trabajo, no para lucir</li>
+          <li><strong>Enganche:</strong> bajo ($1K–$2.5K)</li>
+          <li><strong>Financia:</strong> BHPH o subprime</li>
+          <li><strong>Dolor real:</strong> "muchos lugares me rechazan"</li>
+        </ul>
+        <div style="margin-top:14px;">
+          <span class="pill">Nissan Altima 17/18</span>
+          <span class="pill">Ford Escape 17 SE</span>
+          <span class="pill">MAZDA6</span>
+          <span class="pill">Sedanes &lt;$9K</span>
+        </div>
+      </div>
+
+      <div class="segment-card">
+        <div class="segment-label">SEGMENTO B</div>
+        <div class="segment-name">Familia Creciente</div>
+        <div class="segment-ticket">$11K – $16K</div>
+        <ul>
+          <li><strong>Quién:</strong> papá/mamá con 2-3 hijos, trabajo estable</li>
+          <li><strong>Necesidad:</strong> espacio, seguridad, AC que funcione</li>
+          <li><strong>Enganche:</strong> medio ($2K–$4K)</li>
+          <li><strong>Financia:</strong> finance estándar</li>
+          <li><strong>Dolor real:</strong> "mi carro ya no cabe la familia"</li>
+        </ul>
+        <div style="margin-top:14px;">
+          <span class="pill">Ford Escape 21</span>
+          <span class="pill">Pathfinder 17</span>
+          <span class="pill">Sorento 20</span>
+          <span class="pill">Equinox 20</span>
+          <span class="pill">Odyssey 18</span>
+          <span class="pill">HR-V</span>
+        </div>
+      </div>
+
+      <div class="segment-card">
+        <div class="segment-label">SEGMENTO C</div>
+        <div class="segment-name">Trabajador / Contractor</div>
+        <div class="segment-ticket">$13K – $26K</div>
+        <ul>
+          <li><strong>Quién:</strong> jardinero, construcción, delivery, plomero, mudanzas</li>
+          <li><strong>Necesidad:</strong> herramienta de trabajo, carga, 4×4</li>
+          <li><strong>Enganche:</strong> variable (muchos pagan cash)</li>
+          <li><strong>Financia:</strong> cash o BHPH con ingreso variable</li>
+          <li><strong>Dolor real:</strong> "necesito algo que aguante trabajar todos los días"</li>
+        </ul>
+        <div style="margin-top:14px;">
+          <span class="pill">F-150 16/20</span>
+          <span class="pill">Nissan Titan</span>
+          <span class="pill">Transit Connect</span>
+          <span class="pill">NV Cargo</span>
+          <span class="pill">Wrangler</span>
+        </div>
+      </div>
+
+      <div class="segment-card">
+        <div class="segment-label">SEGMENTO D</div>
+        <div class="segment-name">Upgrade / Aspiracional</div>
+        <div class="segment-ticket">$17K – $26K</div>
+        <ul>
+          <li><strong>Quién:</strong> familia consolidada, quiere mejorar carro actual</li>
+          <li><strong>Necesidad:</strong> más espacio, más años, mejor tecnología</li>
+          <li><strong>Enganche:</strong> tiene trade-in</li>
+          <li><strong>Financia:</strong> finance con buen crédito</li>
+          <li><strong>Dolor real:</strong> "quiero algo mejor sin romper mi presupuesto"</li>
+        </ul>
+        <div style="margin-top:14px;">
+          <span class="pill">RAV4 19</span>
+          <span class="pill">BMW X3 19</span>
+          <span class="pill">Wrangler 18</span>
+          <span class="pill">F-150 20</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout callout-green">
+      <div class="callout-title">Regla de oro del Scout</div>
+      <div class="callout-body">
+        <strong>No empujes inventario. Empuja soluciones.</strong> Cuando leas un post en un grupo, primero clasifica al usuario en uno de los 4 segmentos. Solo después de clasificar, elige el vehículo. Si empiezas por el vehículo que "toca mover", vas a aterrizar en el cliente equivocado y quemas el lead.
+      </div>
+    </div>
+  </div>
+
+  <!-- PRIORITY TIERS -->
+  <div class="sec">
+    <h2><span class="num">03</span> Priorización del Inventario — Tiers A / B / C</h2>
+    <p>No todos los 66 carros en piso merecen el mismo tiempo en Marketplace. La lógica es sencilla: <strong>empujar primero lo que históricamente vende, lo que está bien fotografiado, y lo que cae dentro del rango de precio donde Crew realmente cierra</strong>.</p>
+
+    <h3>Tier A — Empujar Fuerte (prioridad máxima)</h3>
+    <table class="crew">
+      <thead>
+        <tr>
+          <th>Criterio</th>
+          <th>Lógica</th>
+          <th>Ejemplos en piso hoy</th>
+          <th>Segmento</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Ford Escape (cualquier año, &lt;$13K)</strong></td>
+          <td>#1 en ventas históricas — 12 deals en 6 meses</td>
+          <td>Escape 2017 SE ($7,485), Escape 2017 Titanium ($8,985), Escape 2017 SE ($7,885), Escape 2021 SEL ($12,885)</td>
+          <td><span class="tag tag-b">A + B</span></td>
+        </tr>
+        <tr>
+          <td><strong>Nissan Altima (cualquier año, &lt;$11K)</strong></td>
+          <td>2do modelo más vendido — múltiples en stock</td>
+          <td>Altima 2016 SV, Altima 2017 SL, Altima 2018 SV, Altima 2018 SL</td>
+          <td><span class="tag tag-a">A</span></td>
+        </tr>
+        <tr>
+          <td><strong>SUVs familiares $11K–$16K</strong></td>
+          <td>Segmento B es el volumen más predecible</td>
+          <td>Sorento 2020, Equinox 2020, Pathfinder 2017, Odyssey 2018, CX-9 2017</td>
+          <td><span class="tag tag-b">B</span></td>
+        </tr>
+        <tr>
+          <td><strong>Pickups/Vans de trabajo &lt;$18K</strong></td>
+          <td>Segmento C paga cash o BHPH — conversión rápida</td>
+          <td>F-150 2016 XLT, Transit Connect 2021, NV Cargo 2019, Titan 2017</td>
+          <td><span class="tag tag-b">C</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Tier B — Empujar Normal</h3>
+    <table class="crew">
+      <thead>
+        <tr>
+          <th>Criterio</th>
+          <th>Lógica</th>
+          <th>Ejemplos en piso hoy</th>
+          <th>Segmento</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Sedanes alternativos &lt;$10K</strong></td>
+          <td>No son la marca top, pero caen en ticket de Segmento A</td>
+          <td>MAZDA6 2016, Camry, Forte</td>
+          <td><span class="tag tag-a">A</span></td>
+        </tr>
+        <tr>
+          <td><strong>SUVs de upgrade $17K–$23K</strong></td>
+          <td>Ticket más alto, buyer pool más pequeño pero existe</td>
+          <td>RAV4 2019 XLE, Wrangler 2018, F-150 2020</td>
+          <td><span class="tag tag-b">D</span></td>
+        </tr>
+        <tr>
+          <td><strong>Crossovers compactos &lt;$13K</strong></td>
+          <td>Conversión media pero público urbano amplio</td>
+          <td>HR-V 2017, Rogue, Escape base</td>
+          <td><span class="tag tag-b">B</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Tier C — No quemar tiempo en Marketplace</h3>
+    <table class="crew">
+      <thead>
+        <tr>
+          <th>Tipo de unidad</th>
+          <th>Por qué no</th>
+          <th>Canal alternativo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Lujo / BMW / Premium (&gt;$19K)</strong></td>
+          <td>Buyer de Marketplace latino no está ahí. Conversión casi nula</td>
+          <td>Cars.com, CarGurus boost pagado</td>
+        </tr>
+        <tr>
+          <td><strong>Millaje extremo (&gt;160,000 mi)</strong></td>
+          <td>Generan preguntas que consumen tiempo y casi no cierran</td>
+          <td>Solo website + wholesale</td>
+        </tr>
+        <tr>
+          <td><strong>Unidades sin fotos buenas</strong></td>
+          <td>Marketplace se apaga con fotos del CRM — no publicar</td>
+          <td>Bloquear hasta que tengan fotos nuevas</td>
+        </tr>
+        <tr>
+          <td><strong>Vans comerciales grandes (&gt;$20K)</strong></td>
+          <td>Nicho muy específico, mejor contactar contractors directo</td>
+          <td>Outreach B2B directo, no Marketplace</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- COPY ANGLES -->
+  <div class="sec">
+    <h2><span class="num">04</span> Ángulos de Copy por Segmento</h2>
+    <p>Un Ford Escape 2017 para el Segmento A no se vende igual que el mismo Ford Escape 2017 para el Segmento B. Aunque sea el mismo carro. El mensaje cambia.</p>
+
+    <h3>Segmento A — "Primer Carro Propio"</h3>
+    <p><strong>Tono:</strong> cercano, sin promesas exageradas, honesto sobre el proceso. El dolor es rechazo previo.<br>
+       <strong>Evitar:</strong> palabras como "aprobado garantizado", "sin importar tu crédito" (genera desconfianza, suena a estafa).<br>
+       <strong>CTA:</strong> invitar a una evaluación sin compromiso, no a pagar.</p>
+
+    <div class="copy-box" data-label="Ejemplo Copy Segmento A">2017 Nissan Altima SL · $6,685
+
+Un carro para arrancar.
+Confiable, rinde en gasolina y fácil de mantener.
+
+— Te hacemos la evaluación sin presión
+— Trabajamos varios tipos de perfil
+— Aquí te explicamos opciones, no te presionamos
+
+Si estás buscando tu primer carro propio y te han dicho que no en otros lados, escríbeme. Vemos qué se puede.</div>
+
+    <h3>Segmento B — "Familia Creciente"</h3>
+    <p><strong>Tono:</strong> tranquilo, proteccional. El dolor es que el carro actual ya no da para la familia.<br>
+       <strong>Evitar:</strong> hablar de "deal", "oferta", "oportunidad". Hablar de <em>tranquilidad</em>, <em>espacio</em>, <em>seguridad</em>.<br>
+       <strong>CTA:</strong> invitar a traer a la familia a probarlo — esto es clave del AI dealership también.</p>
+
+    <div class="copy-box" data-label="Ejemplo Copy Segmento B">2020 Chevrolet Equinox · $13,485
+
+Para cuando el carro ya no cabe toda la familia.
+Espacio real, asientos cómodos y buen consumo en ciudad.
+
+— Ideal para 2-3 niños + silla de bebé
+— AC que funciona de verdad
+— Ya tiene su revisión hecha
+— Aceptamos tu carro actual como enganche
+
+Si estás buscando algo más grande sin disparar el pago mensual, te muestro las opciones.</div>
+
+    <h3>Segmento C — "Trabajador / Contractor"</h3>
+    <p><strong>Tono:</strong> directo, utilitario. Sin rodeos. El dolor es productividad: el carro es herramienta.<br>
+       <strong>Evitar:</strong> lenguaje "familiar" o "bonito". Hablar de <em>resistencia</em>, <em>capacidad</em>, <em>ganar dinero con él</em>.<br>
+       <strong>CTA:</strong> ver el carro en persona para revisar capacidad.</p>
+
+    <div class="copy-box" data-label="Ejemplo Copy Segmento C">2016 Ford F-150 XLT 4WD · $17,285
+
+Para trabajar duro.
+Motor 2.7L V6, 4×4, caja XLT SuperCab.
+
+— Ideal para construcción, jardinería, mudanzas
+— Manejable para delivery largo
+— Trabajamos con perfiles 1099 y cash
+
+Escríbeme si ya estás cargando herramientas en un carro que no aguanta. Te paso el video y vemos números.</div>
+
+    <h3>Segmento D — "Upgrade / Aspiracional"</h3>
+    <p><strong>Tono:</strong> refinado pero sin pretensión. El dolor es que el carro actual ya no refleja quién soy.<br>
+       <strong>Evitar:</strong> hablar de subprime o aprobación difícil (los ofende, no aplica).<br>
+       <strong>CTA:</strong> trade-in valuation + test drive.</p>
+
+    <div class="copy-box" data-label="Ejemplo Copy Segmento D">2019 Toyota RAV4 XLE AWD · $22,685
+
+Para la próxima etapa.
+Solo 33K millas, AWD, muy bien cuidado.
+
+— Tracción AWD para viajes y clima
+— Asientos de cuero, tecnología 2019
+— Aceptamos trade-in de tu carro actual
+— Financiamiento competitivo
+
+Si ya estás listo para cambiar tu carro actual por algo mejor, te hago la valuación gratis y comparamos.</div>
+  </div>
+
+  <!-- DECISION ENGINE -->
+  <div class="sec">
+    <h2><span class="num">05</span> Motor de Decisión del Scout</h2>
+    <p>Antes de publicar o responder un comentario, el Scout corre esta lógica mental en 3 pasos:</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="step-num">PASO 1</div>
+        <div class="step-title">Clasificar</div>
+        <div class="step-desc">¿Qué segmento es este usuario? (A, B, C, D). Lo deduces del post, foto, lenguaje, grupo donde publicó.</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">PASO 2</div>
+        <div class="step-title">Matchear</div>
+        <div class="step-desc">De las unidades de Tier A/B disponibles, ¿cuál calza mejor con ese segmento?</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">PASO 3</div>
+        <div class="step-title">Mensajear</div>
+        <div class="step-desc">Usar el ángulo de copy del segmento. Nunca el copy genérico del otro segmento.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===========================================================
+     DOCUMENT 2: COMMUNITY LEAD SCOUT PLAYBOOK
+=========================================================== -->
+<div class="doc" id="playbook">
+  <div class="doc-header">
+    <div class="doc-number">Documento 02 · Operación</div>
+    <div class="doc-title">Community Lead Scout <span class="gold">Playbook</span></div>
+    <div class="divider-line"></div>
+    <div class="doc-kicker">
+      La operación diaria del rol. Cómo se trabaja, qué se mide, cómo se integra con Sony y con el resto del equipo. Pensado para que una persona nueva pueda tomar el rol y operar en su primera semana.
+    </div>
+  </div>
+
+  <!-- ROLE -->
+  <div class="sec">
+    <h2><span class="num">01</span> Definición del Rol</h2>
+
+    <div class="card card-gold">
+      <div class="card-title">Community Lead Scout</div>
+      <div class="card-subtitle">Qué es, qué no es, y por qué existe</div>
+
+      <p><strong>Misión:</strong> Generar conversaciones cualificadas desde Facebook Marketplace, grupos y comunidades digitales latinas, y pasárselas a Sony (Lead Operator) con contexto suficiente para que cierren cita.</p>
+
+      <p><strong>Lo que SÍ es este rol:</strong></p>
+      <ul>
+        <li><strong>Detectar intención de compra</strong> en posts, comentarios y grupos antes de que la persona contacte a un dealership formal.</li>
+        <li><strong>Aportar valor en la conversación</strong> (educar, orientar, responder) para construir confianza.</li>
+        <li><strong>Clasificar al prospecto</strong> en uno de los 4 segmentos y proponer el vehículo correcto.</li>
+        <li><strong>Pasar el lead a Sony</strong> con contexto completo (quién, qué busca, cuánto tiene, urgencia).</li>
+        <li><strong>Publicar inventario estratégicamente</strong> — 10 publicaciones al día, pero solo Tier A/B, nunca Tier C.</li>
+      </ul>
+
+      <p><strong>Lo que NO es este rol:</strong></p>
+      <ul>
+        <li><strong>No cierra ventas.</strong> El cierre lo hace Andrés.</li>
+        <li><strong>No agenda citas.</strong> Las agenda Sony con el contexto que le pasa el Scout.</li>
+        <li><strong>No hace spam.</strong> Cada mensaje es relevante al contexto del usuario.</li>
+        <li><strong>No promete aprobación.</strong> Solo dice "vemos opciones".</li>
+        <li><strong>No inventa datos</strong> de precio, mensualidad, enganche o aprobación.</li>
+      </ul>
+    </div>
+
+    <div class="callout">
+      <div class="callout-title">Por qué importa que esto exista</div>
+      <div class="callout-body">
+        El 4.7% de los leads de CarGurus cierra. El 51.7% de los leads del website de Crew cierra. <strong>La gente que te busca directamente convierte 11× más.</strong> El Scout construye ese tipo de lead "caliente" — el que ya conoce la marca, ya vio contenido, ya tiene relación. Es el precursor humano del <em>Lead Hunter Agent</em> del stack AI.
+      </div>
+    </div>
+  </div>
+
+  <!-- PRINCIPIOS -->
+  <div class="sec">
+    <h2><span class="num">02</span> Principios No Negociables</h2>
+    <ul>
+      <li><strong>Honestidad sobre todo.</strong> Si no sabes algo, lo dices y escalas. Nunca inventes precio, aprobación, mensualidad o disponibilidad.</li>
+      <li><strong>Valor antes que venta.</strong> Primero orientas, luego invitas. Nunca al revés.</li>
+      <li><strong>Chequear antes de contactar.</strong> Siempre verificar en GoHighLevel si la persona ya está en el CRM antes de responder (evita duplicados y conversaciones cruzadas).</li>
+      <li><strong>Clasificar antes de ofrecer.</strong> No mostrar carro hasta haber identificado el segmento.</li>
+      <li><strong>Contexto en cada handoff.</strong> Nunca pasarle a Sony solo "tengo un lead" — siempre con el template de handoff completo.</li>
+      <li><strong>Un mensaje, un grupo.</strong> Nunca copiar y pegar el mismo texto en 20 grupos.</li>
+      <li><strong>No responder con "info inbox".</strong> Responder útilmente primero; el inbox viene después de aportar valor.</li>
+      <li><strong>Cerrar la conversación con clase.</strong> Incluso cuando no haya match, despedida cordial. Nunca entrar en peleas o sarcasmo.</li>
+    </ul>
+  </div>
+
+  <!-- SCORECARD -->
+  <div class="sec">
+    <h2><span class="num">03</span> Scorecard Diario</h2>
+    <p>El Scout no se mide por cuántos posts subió. Se mide por cuántas <strong>conversaciones útiles</strong> se convirtieron en <strong>leads calificados pasados a Sony</strong>. La actividad sin output es ruido.</p>
+
+    <table class="crew">
+      <thead>
+        <tr>
+          <th>Métrica</th>
+          <th class="num">Meta diaria</th>
+          <th>Qué cuenta como hecho</th>
+          <th>Por qué importa</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Publicaciones Tier A/B</strong></td>
+          <td class="num">8–10</td>
+          <td>Solo vehículos de Tier A/B del Fit Map. Con fotos buenas.</td>
+          <td>Volumen estratégico, no volumen bruto</td>
+        </tr>
+        <tr>
+          <td><strong>Comentarios útiles en grupos</strong></td>
+          <td class="num">15–20</td>
+          <td>Aportan valor antes de vender. No cuenta "info inbox".</td>
+          <td>Construye autoridad en el grupo</td>
+        </tr>
+        <tr>
+          <td><strong>Conversaciones privadas iniciadas</strong></td>
+          <td class="num">8–12</td>
+          <td>Messenger/WhatsApp con clasificación de segmento hecha</td>
+          <td>Output que se vuelve materia prima para handoff</td>
+        </tr>
+        <tr>
+          <td><strong>Leads calificados pasados a Sony</strong></td>
+          <td class="num">3–5</td>
+          <td>Con template de handoff completo entregado antes de fin de día</td>
+          <td><strong>Esta es LA métrica que importa.</strong></td>
+        </tr>
+        <tr>
+          <td><strong>Citas agendadas (atribuidas al Scout)</strong></td>
+          <td class="num">1–2 / día</td>
+          <td>De los leads pasados, cuántos se volvieron cita en ≤48h</td>
+          <td>Mide calidad del lead, no solo cantidad</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout callout-green">
+      <div class="callout-title">Meta semanal agregada</div>
+      <div class="callout-body">
+        <strong>20–25 leads calificados pasados a Sony por semana</strong> y <strong>5–10 citas atribuidas al canal Marketplace</strong>. Si el Scout no llega a esto en 2 semanas seguidas, se revisa la ejecución antes de revisar el volumen.
+      </div>
+    </div>
+  </div>
+
+  <!-- FLUJO DIARIO -->
+  <div class="sec">
+    <h2><span class="num">04</span> Flujo Diario de Trabajo</h2>
+    <p>El día del Scout se divide en 5 bloques. Horario sugerido: <strong>9am – 6pm</strong> con 1 hora de almuerzo.</p>
+
+    <h3>Bloque 1 — Preparación (9:00 – 9:45 am)</h3>
+    <ul>
+      <li>Revisar con Raúl o Andrés qué unidades son prioridad del día (cuáles son Tier A recién llegadas, cuáles necesitan salida).</li>
+      <li>Abrir el <strong>Fit Map</strong> para tener claro qué vehículo empuja a qué segmento.</li>
+      <li>Abrir la carpeta de fotos de Google Drive y verificar que las unidades a publicar tengan fotos decentes.</li>
+      <li>Revisar GoHighLevel: leads nuevos de anoche, mensajes sin responder en Messenger, pipeline actualizado.</li>
+    </ul>
+
+    <h3>Bloque 2 — Primera ola de publicaciones (9:45 – 11:00 am)</h3>
+    <ul>
+      <li>Publicar 3-4 vehículos Tier A en Marketplace.</li>
+      <li>Cada publicación usa el copy del segmento correspondiente (ver Fit Map Doc 01, sección 04).</li>
+      <li>Compartir cada publicación en 1-2 grupos relevantes al segmento (no más).</li>
+    </ul>
+
+    <h3>Bloque 3 — Engagement en grupos + conversaciones (11:00 am – 2:00 pm)</h3>
+    <ul>
+      <li>Entrar a 3-5 grupos principales, leer los últimos 30 posts.</li>
+      <li>Identificar posts con intención de compra ("busco carro", "ando viendo opciones", "cuánto me prestan para", "me acabo de mudar y necesito transporte").</li>
+      <li>Responder con el patrón: validar necesidad → aportar concreto → orientar → mover a privado.</li>
+      <li>Conversaciones privadas: clasificar segmento en los primeros 2-3 mensajes.</li>
+    </ul>
+
+    <h3>Bloque 4 — Segunda ola + seguimiento (3:00 – 5:00 pm)</h3>
+    <ul>
+      <li>Publicar 3-4 vehículos más (mix Tier A y Tier B).</li>
+      <li>Responder a mensajes que llegaron durante el día en Messenger.</li>
+      <li>Empezar a armar los templates de handoff para Sony.</li>
+    </ul>
+
+    <h3>Bloque 5 — Cierre operativo (5:00 – 6:00 pm)</h3>
+    <ul>
+      <li>Enviar a Sony los 3-5 handoffs del día con contexto completo (template en sección 07).</li>
+      <li>Registrar en GoHighLevel: cada lead nuevo con su segmento, interés, urgencia.</li>
+      <li>Reporte corto a Raúl: qué se publicó, qué grupos funcionaron, qué preguntas se repitieron (material para mañana).</li>
+      <li>Notar qué carros generaron engagement para ajustar la priorización del día siguiente.</li>
+    </ul>
+  </div>
+
+  <!-- DEDUPE -->
+  <div class="sec">
+    <h2><span class="num">05</span> Protocolo de Dedupe (Crítico)</h2>
+    <p>El CRM de The Crew tiene <strong>37% de duplicación</strong> en leads. Muchos contactos ya existen. El Scout <strong>nunca</strong> debe abrir una conversación fresca sin antes verificar si la persona ya está en GoHighLevel. Si ya existe, hay que continuar el hilo anterior, no empezar de cero.</p>
+
+    <div class="callout callout-red">
+      <div class="callout-title">Regla antes de cada respuesta</div>
+      <div class="callout-body">
+        Buscar al usuario en GHL por: <strong>nombre completo + último nombre + número (si lo dio) + email</strong>. Si aparece, leer su historial antes de responder. Si no aparece, proceder pero <strong>registrarlo con el tag "scout:marketplace"</strong> al iniciar.
+      </div>
+    </div>
+
+    <h3>Checklist de dedupe (antes de responder un DM)</h3>
+    <ul class="check-list">
+      <li>Busqué en GHL por su nombre</li>
+      <li>Busqué en GHL por su teléfono (si lo tengo)</li>
+      <li>Revisé si hay hilo previo con Andrés, Elio o Sony</li>
+      <li>Si hay hilo previo, leí el historial antes de responder</li>
+      <li>Confirmé el estado actual del lead (si está LOST, DUPLICATE, CONTACTED, SOLD)</li>
+      <li>Si está SOLD con otro rep, no le vendo de nuevo — lo felicito y cierro</li>
+      <li>Si está LOST por "exceeds age setting", lo reactivo con contexto nuevo</li>
+    </ul>
+  </div>
+
+  <!-- PUBLICACIÓN SOP -->
+  <div class="sec">
+    <h2><span class="num">06</span> SOP de Publicación (8 pasos)</h2>
+
+    <table class="crew">
+      <thead>
+        <tr>
+          <th style="width: 60px;">Paso</th>
+          <th>Acción</th>
+          <th>Criterio de éxito</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1</strong></td>
+          <td>Elegir unidad de Tier A o B del Fit Map</td>
+          <td>Si no está en Tier A/B, no publicar. Proponer cambio a Raúl.</td>
+        </tr>
+        <tr>
+          <td><strong>2</strong></td>
+          <td>Identificar segmento target (A/B/C/D)</td>
+          <td>Debe poder explicar en 1 frase "esta publicación va para ___ porque ___"</td>
+        </tr>
+        <tr>
+          <td><strong>3</strong></td>
+          <td>Verificar fotos (8-15 fotos buenas)</td>
+          <td>Portada limpia + exterior 360° + interior + tablero + millaje visible. Si no hay, no publicar.</td>
+        </tr>
+        <tr>
+          <td><strong>4</strong></td>
+          <td>Verificar datos básicos</td>
+          <td>Año, marca, modelo, millaje, precio, título limpio confirmado por Raúl</td>
+        </tr>
+        <tr>
+          <td><strong>5</strong></td>
+          <td>Redactar copy usando template del segmento</td>
+          <td>Copy del Fit Map adaptado al carro específico. Evitar "aprobado garantizado"</td>
+        </tr>
+        <tr>
+          <td><strong>6</strong></td>
+          <td>Publicar en Marketplace con categorización correcta</td>
+          <td>Precio realista, ubicación Alpharetta, categoría correcta, fotos en orden</td>
+        </tr>
+        <tr>
+          <td><strong>7</strong></td>
+          <td>Compartir en 1-2 grupos relevantes al segmento</td>
+          <td>Nunca en más de 2 grupos con el mismo copy. Adaptar intro en cada uno.</td>
+        </tr>
+        <tr>
+          <td><strong>8</strong></td>
+          <td>Monitorear y responder en &lt;30 min</td>
+          <td>Tiempo de respuesta bajo = más conversión</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- HANDOFF A SONY -->
+  <div class="sec">
+    <h2><span class="num">07</span> Handoff a Sony (Lead Operator)</h2>
+    <p>La interfaz entre Scout y Sony es el punto más importante del sistema. Un lead mal pasado es un lead perdido. El Scout <strong>siempre</strong> entrega con este template:</p>
+
+    <div class="copy-box" data-label="Template de Handoff · Scout → Sony">HANDOFF #[número] · [fecha hora]
+
+👤 CLIENTE
+Nombre: [nombre completo]
+Teléfono: [con WhatsApp si aplica]
+Idioma: [español / inglés / mixto]
+Ciudad/zona: [Alpharetta, Cumming, Gwinnett, etc.]
+
+🎯 SEGMENTO
+[A / B / C / D] — [una línea explicando por qué]
+
+💰 PERFIL FINANCIERO (declarado)
+Enganche que tiene: [$ aprox]
+Pago mensual objetivo: [$ aprox]
+Prefiere: [cash / finance / BHPH / no sabe]
+Crédito (autodeclarado): [bueno / regular / malo / no sabe]
+Ingreso: [W-2 / 1099 / cash / no claro]
+
+🚘 VEHÍCULO DE INTERÉS
+Primario: [ej: Ford Escape 2017 stock A10487]
+Alternativas mencionadas: [si las hay]
+Mostré estas opciones: [lista]
+
+🔥 NIVEL DE URGENCIA
+[HOY / ESTA SEMANA / ESTE MES / EXPLORANDO]
+
+💬 CONTEXTO DE LA CONVERSACIÓN
+[3-5 líneas sobre cómo llegó, qué preguntó, qué te dijo que es importante]
+
+⚠️ BANDERAS
+[Cualquier alerta: "tuvo mala experiencia con otro dealer", "me pidió no llamarla antes de 5pm", "ya había hablado con Andrés hace 2 meses", etc.]
+
+🎯 PRÓXIMO PASO RECOMENDADO
+[Ej: "Llamar entre 4-6pm para ofrecer cita sábado. Mencionar Escape 2017 primero."]
+
+📎 LINK DEL HILO
+[URL de Messenger o screenshot adjunto]</div>
+
+    <div class="callout">
+      <div class="callout-title">Criterio de calidad del handoff</div>
+      <div class="callout-body">
+        Sony debería poder llamar al lead <strong>sin hacerle una sola pregunta que el Scout ya hizo</strong>. Si Sony tiene que volver a preguntar "¿qué carro te interesa?" es porque el handoff estuvo mal. Cada pregunta repetida es fricción que mata conversión.
+      </div>
+    </div>
+  </div>
+
+  <!-- ESCALATION -->
+  <div class="sec">
+    <h2><span class="num">08</span> Cuándo Escalar Inmediatamente</h2>
+    <p>Algunas conversaciones no pasan por Sony — van directo a Andrés o Raúl porque son urgentes, delicadas o están fuera del scope del Scout.</p>
+
+    <table class="crew">
+      <thead>
+        <tr>
+          <th>Situación</th>
+          <th>Escalar a</th>
+          <th>Urgencia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Pregunta específica sobre aprobación bancaria, tasa real, términos de finanza</td><td>Andrés</td><td>Mismo día</td></tr>
+        <tr><td>Cliente muy caliente que quiere cita HOY</td><td>Andrés directo (skip Sony)</td><td>Inmediato</td></tr>
+        <tr><td>Pregunta legal, sobre título, documentos, warranty</td><td>Raúl</td><td>Mismo día</td></tr>
+        <tr><td>Cliente ya compró y tiene reclamo / queja</td><td>Raúl</td><td>Inmediato</td></tr>
+        <tr><td>Duda sobre disponibilidad (¿todavía está el carro?)</td><td>Andrés o Raúl</td><td>Antes de responder al cliente</td></tr>
+        <tr><td>Trade-in: cliente quiere valuación de su carro actual</td><td>Andrés</td><td>Mismo día</td></tr>
+        <tr><td>Sospecha de fraude / spam / identidad falsa</td><td>Raúl + bloquear</td><td>Inmediato</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FÓRMULA DE COMENTARIO -->
+  <div class="sec">
+    <h2><span class="num">09</span> Fórmula de Comentario en Grupos</h2>
+    <p>Cuando alguien postea en un grupo pidiendo ayuda ("busco carro familiar barato", "me acabo de mudar a Atlanta y necesito transporte"), el Scout sigue esta fórmula de 4 pasos. Nunca saltarse el paso 1.</p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <div class="step-num">PASO 1</div>
+        <div class="step-title">Validar</div>
+        <div class="step-desc">"Depende de tu presupuesto y si buscas cash o financiar"</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">PASO 2</div>
+        <div class="step-title">Aportar</div>
+        <div class="step-desc">Dato útil: "Si vas a financiar, lo primero es ver enganche, ingreso y tipo de carro"</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">PASO 3</div>
+        <div class="step-title">Orientar</div>
+        <div class="step-desc">"Para trabajo diario buscaría SUV con &lt;120K millas; para familia algo con 3 filas"</div>
+      </div>
+      <div class="flow-step">
+        <div class="step-num">PASO 4</div>
+        <div class="step-title">Mover</div>
+        <div class="step-desc">"Si quieres, te mando por interno 2-3 opciones concretas que caben en ese rango"</div>
+      </div>
+    </div>
+
+    <h3>Checklist antes de postear un comentario</h3>
+    <ul class="check-list">
+      <li>¿Estoy respondiendo la necesidad real o solo estoy vendiendo?</li>
+      <li>¿Aporto algo útil aunque la persona no nos compre?</li>
+      <li>¿Estoy usando el segmento correcto del Fit Map?</li>
+      <li>¿Evité decir "te tengo este carro" de entrada?</li>
+      <li>¿El CTA es suave (invitación), no duro (presión)?</li>
+      <li>¿Estoy evitando prometer aprobación o mensualidad exacta?</li>
+    </ul>
+  </div>
+
+  <!-- PROMPT LIBRARY -->
+  <div class="sec">
+    <h2><span class="num">10</span> Librería de Prompts de IA</h2>
+    <p>El Scout usa IA (Claude o ChatGPT) como acelerador, no como cerebro. Estos prompts están diseñados para este rol específico — no son genéricos.</p>
+
+    <h4>Para convertir una ficha técnica en copy de Segmento</h4>
+    <div class="prompt-box">Actúa como Community Lead Scout de The Crew Autos, dealership de autos usados en Alpharetta Georgia orientado a comunidad latina.
+
+Convierte los siguientes datos de un carro en un copy para Facebook Marketplace dirigido específicamente al SEGMENTO [A / B / C / D] según el Fit Map de The Crew:
+
+- Segmento A = Primer Carro Propio ($6K-$10K, crédito débil, enganche bajo)
+- Segmento B = Familia Creciente ($11K-$16K, busca espacio y seguridad)
+- Segmento C = Trabajador/Contractor ($13K-$26K, herramienta de trabajo)
+- Segmento D = Upgrade ($17K-$26K, ya tiene carro, quiere mejorar)
+
+Reglas:
+- Escribir en español claro y humano (no corporate)
+- 120-180 palabras máximo
+- Nunca prometer "aprobado garantizado" o "sin importar tu crédito"
+- CTA suave: invitar a conversar, no a comprar
+- Honesto sobre el carro, no exagerar
+
+DATOS DEL CARRO:
+[pegar: año, marca, modelo, millaje, precio, características, stock#]
+
+Dame 3 variantes de copy.</div>
+
+    <h4>Para clasificar a un usuario de grupo en un segmento</h4>
+    <div class="prompt-box">Soy Community Lead Scout de The Crew Autos. Necesito clasificar rápido a un usuario de Facebook que postea en un grupo.
+
+Segmentos:
+- A = Primer Carro Propio (crédito débil, ticket bajo, joven/recién llegado)
+- B = Familia Creciente (padre/madre, busca SUV/minivan, $11-16K)
+- C = Trabajador/Contractor (pickup/van, 1099/cash, herramienta de trabajo)
+- D = Upgrade (ya tiene carro, busca mejor, $17-26K)
+
+POST DEL USUARIO:
+[pegar post]
+
+Dame:
+1) Segmento más probable (A/B/C/D) con justificación en 1 línea
+2) 3 preguntas específicas que le haría para confirmar el segmento
+3) 2 vehículos de Tier A/B que le propondría primero
+4) Ángulo de primer mensaje (no copy completo, solo el ángulo emocional)</div>
+
+    <h4>Para armar un handoff a Sony</h4>
+    <div class="prompt-box">Soy Community Lead Scout. Tengo esta conversación con un prospecto y necesito armar el handoff para Sony (Lead Operator).
+
+Usa el template oficial de handoff de The Crew con estos campos:
+Cliente, Segmento, Perfil Financiero, Vehículo de Interés, Urgencia, Contexto, Banderas, Próximo Paso.
+
+CONVERSACIÓN COMPLETA:
+[pegar chat]
+
+Reglas:
+- Si algún campo no tiene info, escribir "no declarado"
+- Banderas: identifica cualquier señal de urgencia, objeción o historial previo
+- Próximo paso: recomienda acción concreta con timing (hora, día, canal)
+- Todo en español, conciso, accionable</div>
+
+    <h4>Para responder una duda técnica de un comprador</h4>
+    <div class="prompt-box">Responde como Community Lead Scout de The Crew Autos (dealership de usados en Alpharetta GA para comunidad latina).
+
+El cliente pregunta: "[pegar pregunta]"
+
+Reglas:
+- Respuesta útil y educativa, no vendedora
+- Español claro, sin jerga técnica
+- Si la pregunta es sobre aprobación específica, mensualidad exacta o disponibilidad — responder "déjame verificar con el equipo y te confirmo" (no inventar)
+- Máximo 60 palabras
+- Terminar invitando a mover a privado si tiene sentido
+
+Dame 2 versiones: una para comentario público (grupo), otra para DM.</div>
+  </div>
+
+  <!-- ERRORES -->
+  <div class="sec">
+    <h2><span class="num">11</span> Errores Que Matan el Rol</h2>
+    <table class="crew">
+      <thead>
+        <tr>
+          <th>Error</th>
+          <th>Por qué mata</th>
+          <th>Qué hacer en su lugar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>"Info inbox"</strong></td>
+          <td>Agrega ruido, no valor. Banea en grupos serios.</td>
+          <td>Responder con contexto útil y solo después invitar al DM</td>
+        </tr>
+        <tr>
+          <td><strong>Copy-paste en 15 grupos</strong></td>
+          <td>Algoritmo de FB lo detecta, baja alcance, usuarios reportan</td>
+          <td>Máximo 2 grupos por unidad, copy adaptado</td>
+        </tr>
+        <tr>
+          <td><strong>Prometer "aprobación garantizada"</strong></td>
+          <td>Se siente a estafa, quema confianza, puede ser legalmente problemático</td>
+          <td>"Vemos opciones según tu perfil, sin presión"</td>
+        </tr>
+        <tr>
+          <td><strong>Publicar sin fotos buenas</strong></td>
+          <td>Conversión cae a casi cero, marca la cuenta como spam</td>
+          <td>Bloquear la publicación hasta tener fotos</td>
+        </tr>
+        <tr>
+          <td><strong>Pasar lead a Sony sin template completo</strong></td>
+          <td>Sony pierde tiempo preguntando, cliente se enfría</td>
+          <td>Template obligatorio, sin excepción</td>
+        </tr>
+        <tr>
+          <td><strong>No chequear en GHL antes de responder</strong></td>
+          <td>Duplica leads, confunde al equipo, pisa historial</td>
+          <td>Búsqueda obligatoria antes de primer mensaje</td>
+        </tr>
+        <tr>
+          <td><strong>Publicar Tier C en Marketplace</strong></td>
+          <td>Consume tiempo, baja el score del feed, no convierte</td>
+          <td>Solo Tier A y B. Tier C va por otros canales.</td>
+        </tr>
+        <tr>
+          <td><strong>Inventar mensualidad exacta</strong></td>
+          <td>Si llega distinta, pierde la venta y la confianza</td>
+          <td>"Rango estimado entre $X y $Y, el número exacto sale con la aprobación"</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ===========================================================
+     DOCUMENT 3: DATA & ASSETS REQUEST
+=========================================================== -->
+<div class="doc" id="data-request">
+  <div class="doc-header">
+    <div class="doc-number">Documento 03 · Requerimiento</div>
+    <div class="doc-title">Data & Assets <span class="gold">Request</span></div>
+    <div class="divider-line"></div>
+    <div class="doc-kicker">
+      Lo que el equipo de The Crew (Raúl, Andrés, Manuela) debe entregar para que el Scout opere al 100%. Sin esto, el rol funciona a la mitad. Ordenado por prioridad y con responsable claro.
+    </div>
+  </div>
+
+  <!-- GAP CRÍTICO FOTOS -->
+  <div class="sec">
+    <h2><span class="num">01</span> Gap Crítico · Fotos de Inventario</h2>
+
+    <div class="callout callout-red">
+      <div class="callout-title">Situación actual</div>
+      <div class="callout-body">
+        De las 24 unidades revisadas en CarGurus (página 1 de 3), <strong>al menos 12 tienen "Photos coming soon"</strong>. Esto significa que cerca de la <strong>mitad del inventario no tiene fotos listas</strong>. Publicar estas unidades en Marketplace equivale a quemar el algoritmo de la cuenta.
+      </div>
+    </div>
+
+    <h3>Unidades urgentes por fotografiar (detectadas sin fotos en CarGurus)</h3>
+    <table class="crew">
+      <thead>
+        <tr>
+          <th>Stock #</th>
+          <th>Vehículo</th>
+          <th class="num">Precio</th>
+          <th>Tier Scout</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>070278</td><td>2018 Honda Odyssey EX-L</td><td class="num">$16,485</td><td><span class="tag tag-a">A — Segmento B</span></td></tr>
+        <tr><td>E76814</td><td>2017 Ford Escape Titanium AWD</td><td class="num">$8,985</td><td><span class="tag tag-a">A — Segmento A/B</span></td></tr>
+        <tr><td>P88900</td><td>2019 BMW X3 xDrive30i AWD</td><td class="num">$19,285</td><td><span class="tag tag-c">C — no Marketplace</span></td></tr>
+        <tr><td>638628</td><td>2017 Nissan Pathfinder Platinum</td><td class="num">$13,285</td><td><span class="tag tag-a">A — Segmento B</span></td></tr>
+        <tr><td>420022</td><td>2016 Mazda MAZDA6 i Touring</td><td class="num">$9,885</td><td><span class="tag tag-b">B — Segmento A</span></td></tr>
+        <tr><td>681948</td><td>2020 Chevrolet Equinox LS FWD</td><td class="num">$13,485</td><td><span class="tag tag-a">A — Segmento B</span></td></tr>
+        <tr><td>141959</td><td>2017 Mazda CX-9 Sport AWD</td><td class="num">$11,685</td><td><span class="tag tag-b">B — Segmento B</span></td></tr>
+        <tr><td>D36670</td><td>2017 Ford Escape SE FWD</td><td class="num">$7,885</td><td><span class="tag tag-a">A — Segmento A</span></td></tr>
+        <tr><td>490019</td><td>2021 Ford Transit Connect Cargo</td><td class="num">$13,985</td><td><span class="tag tag-a">A — Segmento C</span></td></tr>
+        <tr><td>731560</td><td>2017 Honda HR-V EX AWD</td><td class="num">$12,285</td><td><span class="tag tag-b">B — Segmento B</span></td></tr>
+        <tr><td>574889</td><td>2017 Nissan Titan SV Crew Cab</td><td class="num">$17,485</td><td><span class="tag tag-a">A — Segmento C</span></td></tr>
+        <tr><td>615327</td><td>2020 Kia Sorento LX V6 FWD</td><td class="num">$11,985</td><td><span class="tag tag-a">A — Segmento B</span></td></tr>
+      </tbody>
+    </table>
+
+    <p><strong>Request:</strong> sesión de fotos de 1 día para cubrir las 12 unidades prioritarias. Responsable sugerido: <strong>Raúl + Valentina</strong>. Protocolo mínimo: 15 fotos por carro (exterior 360°, interior completo, tablero con millaje, motor, baúl).</p>
+  </div>
+
+  <!-- DATA DE VEHÍCULOS -->
+  <div class="sec">
+    <h2><span class="num">02</span> Enriquecimiento de Data por Vehículo</h2>
+    <p>Para que el Scout pueda priorizar correctamente (y no solo adivinar), cada unidad del inventario necesita estos campos agregados en el sistema interno:</p>
+
+    <table class="crew">
+      <thead>
+        <tr>
+          <th>Campo</th>
+          <th>Por qué lo necesita el Scout</th>
+          <th>Responsable</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Margen real por unidad</strong></td>
+          <td>Priorizar empuje en los carros donde The Crew gana más, no solo donde vende más</td>
+          <td>Raúl / Andrés</td>
+        </tr>
+        <tr>
+          <td><strong>Tasa de aprobación histórica</strong></td>
+          <td>Si un carro típicamente se aprueba, el Scout puede ser más asertivo con Segmento A</td>
+          <td>Andrés</td>
+        </tr>
+        <tr>
+          <td><strong>Días promedio a cita</strong></td>
+          <td>Detectar cuáles unidades convierten rápido para priorizarlas</td>
+          <td>Sony (con data de GHL)</td>
+        </tr>
+        <tr>
+          <td><strong>Flag "ya tiene fotos buenas" SÍ/NO</strong></td>
+          <td>Si no las tiene, el Scout no la publica en Marketplace</td>
+          <td>Valentina</td>
+        </tr>
+        <tr>
+          <td><strong>Tier A/B/C/Skip</strong></td>
+          <td>Clasificación explícita según Fit Map — no adivinanza</td>
+          <td>Scout + Raúl (weekly review)</td>
+        </tr>
+        <tr>
+          <td><strong>Segmento target primario</strong></td>
+          <td>Cada carro tiene un segmento principal según Fit Map</td>
+          <td>Scout + Raúl</td>
+        </tr>
+        <tr>
+          <td><strong>Flag "ya vendido / pending"</strong></td>
+          <td>Evitar que el Scout publique o promocione carros que ya están comprometidos</td>
+          <td>Andrés (update 2× día)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>Entregable sugerido:</strong> un Google Sheet maestro con una fila por stock#, actualizado diariamente. El Scout lo consulta como primera cosa en Bloque 1.</p>
+  </div>
+
+  <!-- TESTIMONIOS -->
+  <div class="sec">
+    <h2><span class="num">03</span> Social Proof · Testimonios y Casos Reales</h2>
+    <p>Marketplace y grupos son canales de alta desconfianza. El Scout necesita munición de credibilidad para responder objeciones comunes. Sin esto, la conversación se estanca en "y cómo sé que no me van a estafar".</p>
+
+    <h3>Requerimientos específicos</h3>
+    <ul>
+      <li><strong>5-10 testimonios en video cortos</strong> (1-2 min) de clientes reales, en español, mostrando su carro. Que cuenten: problema que tenían → cómo los ayudó The Crew → cómo se sienten hoy.</li>
+      <li><strong>3-5 testimonios escritos con foto</strong> del cliente + su carro, aprobados para uso en Marketplace y grupos.</li>
+      <li><strong>2-3 "case studies" detallados</strong>: clientes que llegaron con crédito difícil y salieron manejando. Un ejemplo por segmento (A, B, C, D).</li>
+      <li><strong>Screenshots de reseñas</strong> de Google / Facebook con 4-5 estrellas (mínimo 10 unidades, bien visibles).</li>
+      <li><strong>Fotos de entrega</strong>: clientes reales recibiendo llaves, abrazando a Raúl/Andrés, frente al letrero de Crew Autos.</li>
+    </ul>
+
+    <p><strong>Responsable:</strong> Sebastián (Head of Content, cuando entre en fase de contenido) — pero inicialmente <strong>Raúl</strong> puede capturar los primeros 3-5 en cliente actual.</p>
+  </div>
+
+  <!-- ASSETS FINANCIEROS -->
+  <div class="sec">
+    <h2><span class="num">04</span> Assets de Educación Financiera</h2>
+    <p>El rol vive de <strong>educar</strong> antes de vender. El Scout necesita materiales listos para compartir cuando un usuario pregunta sobre crédito, financiamiento o aprobación. Si tiene que improvisar cada vez, la conversación se pierde.</p>
+
+    <table class="crew">
+      <thead>
+        <tr>
+          <th>Asset</th>
+          <th>Formato</th>
+          <th>Caso de uso</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Guía "Cómo comprar carro usado inteligente"</strong></td>
+          <td>PDF de 4-6 páginas descargable</td>
+          <td>Lead magnet para conversaciones de Segmento A y B</td>
+        </tr>
+        <tr>
+          <td><strong>Checklist "Qué necesitas para aplicar a financiamiento"</strong></td>
+          <td>Imagen infográfica + PDF</td>
+          <td>Responder preguntas sobre documentación requerida</td>
+        </tr>
+        <tr>
+          <td><strong>FAQ sobre crédito débil/nulo</strong></td>
+          <td>Doc corto compartible</td>
+          <td>Segmento A pregunta mucho sobre esto</td>
+        </tr>
+        <tr>
+          <td><strong>Video explicador "Cómo funciona BHPH"</strong></td>
+          <td>Video 90 seg subtitulado</td>
+          <td>Muchos clientes no saben qué es BHPH</td>
+        </tr>
+        <tr>
+          <td><strong>Calculadora simple de mensualidad</strong></td>
+          <td>Link a website o sheet público</td>
+          <td>El Scout puede compartirla en lugar de inventar números</td>
+        </tr>
+        <tr>
+          <td><strong>One-pager sobre warranty y service post-venta</strong></td>
+          <td>PDF 1 página</td>
+          <td>Responder objeciones sobre "qué pasa después de comprar"</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>Responsable:</strong> Raúl + Sebastián (con soporte de Süpernova Lab / Claude para redacción).</p>
+  </div>
+
+  <!-- GHL / INTEGRATIONS -->
+  <div class="sec">
+    <h2><span class="num">05</span> Integraciones en GoHighLevel</h2>
+
+    <div class="callout callout-red">
+      <div class="callout-title">Bloqueador actual</div>
+      <div class="callout-body">
+        Sin estas automatizaciones, el Scout va a duplicar leads, perder handoffs y recrear contactos que ya existen. El CRM hoy tiene <strong>37% de duplicación</strong>. Este rol lo va a empeorar si no se blinda antes.
+      </div>
+    </div>
+
+    <h3>Automatizaciones necesarias</h3>
+    <ul>
+      <li><strong>Tag automático "source:marketplace"</strong> cuando un lead entra por el Scout. Sin esto, no hay tracking de atribución.</li>
+      <li><strong>Pipeline dedicado "Scout Handoff"</strong>: columnas = Sin contactar → Contactado por Sony → Cita agendada → Cita completada → Ganada/Perdida.</li>
+      <li><strong>Webhook de Messenger → GHL</strong>: cuando alguien escribe por DM, el contacto se crea automáticamente con tag "scout:messenger".</li>
+      <li><strong>Regla de dedupe por teléfono/email</strong>: si ya existe, agregar nota en lugar de crear nuevo contacto.</li>
+      <li><strong>Alerta a Sony</strong> cada vez que el Scout pasa un handoff (notificación + contexto en el lead).</li>
+      <li><strong>Extender "dealer age setting"</strong> en leads con tag "scout:*" — o exceptuarlos de auto-kill hasta tener un protocolo de rescate.</li>
+      <li><strong>Dashboard semanal</strong>: leads generados por Scout, % convertidos a cita, % cerrados. Visibilidad para Raúl.</li>
+    </ul>
+
+    <p><strong>Responsable:</strong> Süpernova Lab / AI Specialist (una vez contratado). Mientras tanto, Juanse puede configurar el MVP con Raúl.</p>
+  </div>
+
+  <!-- BRANDING / PHOTO KIT -->
+  <div class="sec">
+    <h2><span class="num">06</span> Kit de Branding para Publicaciones</h2>
+    <p>El Scout publica 10× por día. Si las publicaciones no tienen coherencia visual, la marca se pierde en el feed. Necesita un kit mínimo listo.</p>
+
+    <ul>
+      <li><strong>Plantilla de portada</strong> con logo Crewautos en overlay (versión dark y light). Sin distraer del carro.</li>
+      <li><strong>Marco de precio</strong>: barra dorada con precio grande, formato estándar.</li>
+      <li><strong>Tag de "Disponible"</strong>, "Recién llegado", "Oportunidad semana" — stickers reutilizables.</li>
+      <li><strong>Banner de "Financiamiento disponible"</strong> con el phone del dealership visible.</li>
+      <li><strong>Firma estándar</strong> para cierre de copy: "The Crew Autos · 820 McFarland Pkwy, Alpharetta · (888) 782-0061"</li>
+    </ul>
+
+    <p><strong>Responsable:</strong> Süpernova Lab / Raúl (usar skill <code>crew-assets</code> para mantener coherencia con branding).</p>
+  </div>
+
+  <!-- PRIORIZACIÓN -->
+  <div class="sec">
+    <h2><span class="num">07</span> Priorización del Request</h2>
+    <p>No todo se puede hacer mañana. Este es el orden recomendado:</p>
+
+    <table class="crew">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Impacto</th>
+          <th>Quién</th>
+          <th>Cuándo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Sesión de fotos de 12 unidades sin foto</strong></td>
+          <td><span class="tag tag-a">Alto</span></td>
+          <td>Raúl + Valentina</td>
+          <td>Esta semana</td>
+        </tr>
+        <tr>
+          <td><strong>Google Sheet maestro de inventario con tiers</strong></td>
+          <td><span class="tag tag-a">Alto</span></td>
+          <td>Juanse + Raúl</td>
+          <td>Esta semana</td>
+        </tr>
+        <tr>
+          <td><strong>Tag + pipeline "Scout Handoff" en GHL</strong></td>
+          <td><span class="tag tag-a">Alto</span></td>
+          <td>Juanse / AI Specialist</td>
+          <td>Esta semana</td>
+        </tr>
+        <tr>
+          <td><strong>Dedupe rule en GHL</strong></td>
+          <td><span class="tag tag-a">Alto</span></td>
+          <td>AI Specialist</td>
+          <td>Próximos 14 días</td>
+        </tr>
+        <tr>
+          <td><strong>Kit de branding para publicaciones</strong></td>
+          <td><span class="tag tag-b">Medio</span></td>
+          <td>Süpernova Lab</td>
+          <td>Próximos 14 días</td>
+        </tr>
+        <tr>
+          <td><strong>5 testimonios en video cortos</strong></td>
+          <td><span class="tag tag-b">Medio</span></td>
+          <td>Raúl / Sebastián</td>
+          <td>Próximos 30 días</td>
+        </tr>
+        <tr>
+          <td><strong>Guía educativa PDF + FAQ financiero</strong></td>
+          <td><span class="tag tag-b">Medio</span></td>
+          <td>Raúl + Süpernova Lab</td>
+          <td>Próximos 30 días</td>
+        </tr>
+        <tr>
+          <td><strong>Dashboard semanal Scout en GHL</strong></td>
+          <td><span class="tag tag-c">Bajo</span></td>
+          <td>AI Specialist</td>
+          <td>Mes 2</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+</div><!-- /wrap -->
+
+<div class="footer">
+  <div class="brand">THE CREW AUTOS · DRIVE YOUR DREAM</div>
+  <div>Community Lead Scout Operating System · v1.0 · Süpernova Lab · Abril 2026</div>
+</div>
+
+<script>
+// Active tab highlight on scroll
+const tabs = document.querySelectorAll('.nav-tab');
+const docs = document.querySelectorAll('.doc');
+window.addEventListener('scroll', () => {
+  let current = '';
+  docs.forEach(doc => {
+    const rect = doc.getBoundingClientRect();
+    if (rect.top < 200 && rect.bottom > 200) {
+      current = doc.id;
+    }
+  });
+  tabs.forEach(t => {
+    t.classList.toggle('active', t.getAttribute('href') === '#' + current);
+  });
+});
+</script>
+
+</body>
+</html>
